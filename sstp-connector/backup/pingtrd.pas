@@ -72,14 +72,12 @@ begin
       Shape1.Brush.Color := clLime;
       StartBtn.Enabled := False;
       RouterEdit.Enabled := False;
-      LogMemo.Append('SSTP VPN запущена: ' + DateToStr(Now));
     end
     else
     begin
       Shape1.Brush.Color := clYellow;
       StartBtn.Enabled := True;
       RouterEdit.Enabled := True;
-      LogMemo.Append('SSTP VPN остановлен: ' + DateToStr(Now));
     end;
 
     Shape1.Repaint;

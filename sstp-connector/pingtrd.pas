@@ -71,13 +71,11 @@ begin
     begin
       Shape1.Brush.Color := clLime;
       StartBtn.Enabled := False;
-      RouterEdit.Enabled := False;
     end
     else
     begin
       Shape1.Brush.Color := clYellow;
       StartBtn.Enabled := True;
-      RouterEdit.Enabled := True;
     end;
 
     Shape1.Repaint;

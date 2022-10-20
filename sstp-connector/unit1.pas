@@ -19,12 +19,10 @@ type
     UserEdit: TEdit;
     PasswordEdit: TEdit;
     ServerEdit: TEdit;
-    RouterEdit: TEdit;
     IniPropStorage1: TIniPropStorage;
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
-    Label4: TLabel;
     LogMemo: TMemo;
     Shape1: TShape;
     StartBtn: TSpeedButton;
@@ -37,7 +35,7 @@ type
     procedure StartBtnClick(Sender: TObject);
     procedure StopBtnClick(Sender: TObject);
     procedure StartProcess(command: string);
-    procedure IPRouterCheck;
+
   private
 
   public
@@ -79,29 +77,6 @@ begin
   finally
     ExProcess.Free;
   end;
-end;
-
-//Проверка IP роутера
-procedure TMainForm.IPRouterCheck;
-var
-  GWPing: ansistring;
-begin
-  //Проверка на пустоту
-  if (Trim(UserEdit.Text) = '') or (Trim(PasswordEdit.Text) = '') or
-    (Trim(ServerEdit.Text) = '') or (Trim(RouterEdit.Text) = '') then Abort;
-
-  Screen.Cursor := crHourGlass;
-  LogMemo.Text := SCheckRouterIP;
-  Application.ProcessMessages;
-  if RunCommand('/bin/bash', ['-c', 'fping ' + RouterEdit.Text +
-    ' &> /dev/null && echo "yes" || echo "no"'], GWPing) then
-    if Trim(GWPing) <> 'yes' then
-    begin
-      LogMemo.Text := SInValidRouterIP;
-      Screen.Cursor := crDefault;
-      Abort;
-    end;
-  Screen.Cursor := crDefault;
 end;
 
 //Проверка чекбокса ClearBox (очистка кеш/cookies)
@@ -174,29 +149,27 @@ begin
 
   AutostartBox.Checked := CheckAutoStart;
   ClearBox.Checked := CheckClear;
-
-  //Статус при новом открытии GUI
-  // if Shape1.Brush.Color=clLime then LogMemo.Text:= SConnectYes;
 end;
 
+{Запуск скрипта; чтобы менять DefaultRoute автоматически,
+добавить в /etc/ppp/options - defaultroute и replacedefaultroute,
+а при запуске sstpc --save-server-route
+https://unix.stackexchange.com/questions/448169/pppd-default-route-configuration
+http://manpages.ylsoftware.com/ru/pppd.8.html}
 procedure TMainForm.StartBtnClick(Sender: TObject);
 var
   S: TStringList;
   FStartConnect: TThread;
 begin
-  //Проверка IP роутера иначе будут установлены неправильные настройки
-  IPRouterCheck;
+  //Проверка на пустоту
+  if (Trim(UserEdit.Text) = '') or (Trim(PasswordEdit.Text) = '') or
+    (Trim(ServerEdit.Text) = '') then Exit;
 
   try
     S := TStringList.Create;
 
     S.Add('#!/bin/bash');
     S.Add('');
-
-    //Восстанавливаем дефолтный шлюз и DNS
-   { S.Add('pkill sstpc; ip route del default; ip route add default via ' +
-      RouterEdit.Text);
-    S.Add('"' + ExtractFileDir(Application.ExeName) + '/update-resolv-conf" down');}
 
     //Подключаемся к серверу (от --log-level зависим выход из потока, min=2)
     S.Add('sstpc --log-level 3 --log-stdout --save-server-route --tls-ext --cert-warn --user '
@@ -214,28 +187,26 @@ begin
     S.Add('echo -e "\n' + SConnectYes + '\n---"');
     S.Add('ip a show ppp0');
 
-    //Адрес получен, заменить DNS и DEFAULT_GATEWAY
+    //Адрес получен, заменить DNS
     S.Add('"' + ExtractFileDir(Application.ExeName) + '/update-resolv-conf" up');
 
-    S.Add('ip route del default; ip route add default dev ppp0');
     S.Add('echo -e "\n' + SDefaultGW + '\n---"');
     S.Add('ip route | grep ppp0');
 
     S.Add('');
-    S.Add('exit 0;');
+    S.Add('exit 0');
 
     S.SaveToFile('/etc/sstp-connector/connect.sh');
 
     FStartConnect := StartConnect.Create(False);
     FStartConnect.Priority := tpNormal;
 
-    //Файл останова VPN (возврат Default-GW и DNS) для systemd
+    //Файл останова VPN (возврат DNS) для systemd
     S.Clear;
 
     S.Add('#!/bin/bash');
     S.Add('');
-    S.Add('pkill sstpc; ip route del default; ip route add default via ' +
-      RouterEdit.Text);
+    S.Add('pkill sstpc');
     S.Add('"' + ExtractFileDir(Application.ExeName) + '/update-resolv-conf" down');
     S.Add('pkill -f /etc/sstp-connector/connect.sh');
     S.Add('');
@@ -252,9 +223,6 @@ end;
 //Down ppp0  (pkill -f /etc/sstp-connector/connect.sh)
 procedure TMainForm.StopBtnClick(Sender: TObject);
 begin
-  //Проверка IP роутера иначе будут возвращены неправильные настройки
-  IPRouterCheck;
-
   LogMemo.Text := SStopVPN;
 
   if FileExists('/etc/sstp-connector/stop-connect.sh') then

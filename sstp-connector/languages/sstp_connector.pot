@@ -28,10 +28,6 @@ msgstr ""
 msgid "Server[:Port]:"
 msgstr ""
 
-#: tmainform.label4.caption
-msgid "IP of your Router:"
-msgstr ""
-
 #: tmainform.startbtn.caption
 msgctxt "tmainform.startbtn.caption"
 msgid "Start"
