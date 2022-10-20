@@ -195,9 +195,6 @@ begin
       RouterEdit.Text);
     S.Add('"' + ExtractFileDir(Application.ExeName) + '/update-resolv-conf" down');
 
-    //Проверка пинга Router IP
-    S.Add('[[ $(fping ' + RouterEdit.Text + ') ]] || exit 1');
-
     //Подключаемся к серверу (от --log-level зависим выход из потока, min=2)
     S.Add('sstpc --log-level 2 --log-stdout --save-server-route --tls-ext --cert-warn --user '
       + UserEdit.Text + ' --password ' + PasswordEdit.Text + ' ' +
@@ -229,6 +226,22 @@ begin
 
     FStartConnect := StartConnect.Create(False);
     FStartConnect.Priority := tpNormal;
+
+    //Файл останова VPN (возврат Default-GW и DNS) для systemd
+    S.Clear;
+
+    S.Add('#!/bin/bash');
+    S.Add('');
+    S.Add('pkill sstpc; ip route del default; ip route add default via ' +
+      RouterEdit.Text);
+    S.Add('"' + ExtractFileDir(Application.ExeName) + '/update-resolv-conf" down');
+    S.Add('pkill -f /etc/sstp-connector/connect.sh');
+    S.Add('');
+    S.Add('exit 0');
+
+    S.SaveToFile('/etc/sstp-connector/stop-connect.sh');
+
+    StartProcess('chmod +x /etc/sstp-connector/stop-connect.sh');
   finally
     S.Free;
   end;
