@@ -50,10 +50,6 @@ msgstr ""
 msgid "Checking the router's IP..."
 msgstr ""
 
-#: unit1.sconnectgetip
-msgid "Connection/Getting an IP (ppp0), wait..."
-msgstr ""
-
 #: unit1.sconnectyes
 msgid "The connection is established:"
 msgstr ""

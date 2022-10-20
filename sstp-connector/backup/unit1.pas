@@ -200,17 +200,18 @@ begin
     S.Add('"' + ExtractFileDir(Application.ExeName) + '/update-resolv-conf" down');
 
     //Подключаемся к серверу (от --log-level зависим выход из потока, min=2)
-    S.Add('sstpc --log-level 2 --log-stdout --save-server-route --tls-ext --cert-warn --user '
+    S.Add('sstpc --log-level 3 --log-stdout --save-server-route --tls-ext --cert-warn --user '
       + UserEdit.Text + ' --password ' + PasswordEdit.Text + ' ' +
       ServerEdit.Text + ' noauth &');
 
     //Ожидание получения ppp0 = ip_address от сервера
-    S.Add('count=1');
+    S.Add('count=0');
     S.Add('while [[ -z $(ip a show ppp0 2>/dev/null | grep inet) ]]; do');
 
-    S.Add('echo "' + SConnectGetIP + '" $count');
+    //S.Add('echo "' + SConnectGetIP + '" $count');
     S.Add('sleep 1');
     S.Add('count=$(( $count + 1 ))');
+    S.Add('[[ $count == 2 ]] && exit 1');
     S.Add('done');
 
     S.Add('echo -e "\n' + SConnectYes + '\n---"');
@@ -259,10 +260,8 @@ begin
 
   LogMemo.Text := SStopVPN;
 
-  Application.ProcessMessages;
-  StartProcess('pkill sstpc; ip route del default; ip route add default via ' +
-    RouterEdit.Text + '; "' + ExtractFileDir(Application.ExeName) +
-    '/update-resolv-conf" down; ' + 'pkill -f /etc/sstp-connector/connect.sh');
+  if FileExists('/etc/sstp-connector/stop-connect.sh') then
+    StartProcess('/etc/sstp-connector/stop-connect.sh');
 
   Shape1.Brush.Color := clYellow;
   Shape1.Repaint;

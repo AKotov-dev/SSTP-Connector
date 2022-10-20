@@ -61,10 +61,6 @@ msgstr "Стоп/Сброс"
 msgid "Checking the router's IP..."
 msgstr "Проверка IP вашего роутера..."
 
-#: unit1.sconnectgetip
-msgid "Connection/Getting an IP (ppp0), wait..."
-msgstr "Подключение/Получение IP (ppp0), ждите..."
-
 #: unit1.sconnectyes
 msgid "The connection is established:"
 msgstr "Соединение установлено:"

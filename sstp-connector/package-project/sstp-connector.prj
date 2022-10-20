@@ -2,10 +2,10 @@
 name=sstp-connector
 
 [VERSION]
-version=0.1
+version=0.2
 
 [RELEASE]
-release=0.mrx9
+release=1.mrx9
 
 [GROUP]
 group=Applications/System
@@ -76,4 +76,7 @@ devtool=Lazarus
 toolversion=2.2.0
 
 [INFO]
-0=v0.1 - initial release
+0=v0.2
+1=+ Improved output of the sstp connection log
+2=
+3=v0.1 - initial release
