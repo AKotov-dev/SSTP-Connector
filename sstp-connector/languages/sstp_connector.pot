@@ -32,10 +32,6 @@ msgstr ""
 msgid "IP of your Router:"
 msgstr ""
 
-#: tmainform.label5.caption
-msgid "Event log:"
-msgstr ""
-
 #: tmainform.startbtn.caption
 msgctxt "tmainform.startbtn.caption"
 msgid "Start"

@@ -15,6 +15,7 @@ type
   TMainForm = class(TForm)
     ClearBox: TCheckBox;
     AutoStartBox: TCheckBox;
+    ProgressBar1: TProgressBar;
     UserEdit: TEdit;
     PasswordEdit: TEdit;
     ServerEdit: TEdit;
@@ -24,12 +25,12 @@ type
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
-    Label5: TLabel;
     LogMemo: TMemo;
     Shape1: TShape;
     StartBtn: TSpeedButton;
     StopBtn: TSpeedButton;
     StaticText1: TStaticText;
+    procedure AutoStartBoxChange(Sender: TObject);
     procedure ClearBoxChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -152,12 +153,29 @@ begin
     RunCommand('/bin/bash', ['-c', 'touch ~/.config/sstp-connector/clear'], S);
 end;
 
+procedure TMainForm.AutoStartBoxChange(Sender: TObject);
+var
+  S: ansistring;
+begin
+  Screen.Cursor := crHourGlass;
+  Application.ProcessMessages;
+
+  if not AutoStartBox.Checked then
+    RunCommand('/bin/bash', ['-c', 'systemctl disable sstp-connector.service'], S)
+  else
+    RunCommand('/bin/bash', ['-c', 'systemctl enable sstp-connector.service'], S);
+  Screen.Cursor := crDefault;
+end;
+
 procedure TMainForm.FormShow(Sender: TObject);
 begin
   IniPropStorage1.Restore;
 
   AutostartBox.Checked := CheckAutoStart;
   ClearBox.Checked := CheckClear;
+
+  //Статус при новом открытии GUI
+ // if Shape1.Brush.Color=clLime then LogMemo.Text:= SConnectYes;
 end;
 
 procedure TMainForm.StartBtnClick(Sender: TObject);
@@ -175,7 +193,7 @@ begin
     S.Add('');
 
     //Восстанавливаем дефолтный шлюз и DNS
-    S.Add('killall sstpc 2>/dev/null; ip route del default; ip route add default via ' +
+    S.Add('pkill sstpc; ip route del default; ip route add default via ' +
       RouterEdit.Text);
     S.Add('"' + ExtractFileDir(Application.ExeName) + '/update-resolv-conf" down');
 
@@ -183,7 +201,7 @@ begin
     S.Add('[[ $(fping ' + RouterEdit.Text + ') ]] || exit 1');
 
     //Подключаемся к серверу
-    S.Add('sstpc --save-server-route --tls-ext --cert-warn --user ' +
+    S.Add('sstpc --log-level 2 --log-stdout --save-server-route --tls-ext --cert-warn --user ' +
       UserEdit.Text + ' --password ' + PasswordEdit.Text + ' ' +
       ServerEdit.Text + ' noauth &');
 
@@ -226,7 +244,7 @@ begin
 
   LogMemo.Text := SStopVPN;
 
-  StartProcess('killall sstpc; ip route del default; ip route add default via ' +
+  StartProcess('pkill sstpc; ip route del default; ip route add default via ' +
     RouterEdit.Text + '; "' + ExtractFileDir(Application.ExeName) +
     '/update-resolv-conf" down; ' + 'pkill -f /root/.config/sstp-connector/connect.sh');
 

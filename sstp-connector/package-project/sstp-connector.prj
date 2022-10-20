@@ -31,7 +31,7 @@ urlcopy=https://github.com/AKotov-dev/SSTP-Connector
 license=GPLv3
 
 [DEPS]
-deps=sstp-client gtk2 polkit fping procps-ng
+deps=sstp-client gtk2 polkit fping procps-ng resolvconf systemd
 
 [META]
 meta=0
@@ -53,6 +53,12 @@ deb=0
 4=/usr/share/applications/sstp-connector.desktop
 5=/usr/share/polkit-1/actions/sstp-connector.policy
 6=/usr/share/doc/sstp-connector/
+
+[AFTERINSTALL]
+0=systemctl daemon-reload
+
+[AFTERREMOVE]
+0=systemctl daemon-reload
 
 [URL32]
 url32=https://github.com/AKotov-dev/SSTP-Connector

@@ -81,7 +81,10 @@ begin
   with MainForm do
   begin
     LogMemo.Clear;
-    StartBtn.Enabled:=False;
+    StartBtn.Enabled := False;
+    ProgressBar1.Style := pbstMarquee;
+    StartBtn.Refresh;
+    ProgressBar1.Refresh;
   end;
 end;
 
@@ -90,9 +93,11 @@ procedure StartConnect.StopProgress;
 begin
   with MainForm do
   begin
-    StartBtn.Enabled:=True;
-    //Восстанавливаем дефолтный GW и DNS
-    StopBtn.Click;
+    StartBtn.Enabled := True;
+    ProgressBar1.Style := pbstNormal;
+    StartBtn.Refresh;
+    ProgressBar1.Refresh;
+
     //Сохраняем историю
     IniPropStorage1.Save;
   end;

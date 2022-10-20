@@ -104,6 +104,7 @@ object MainForm: TMainForm
     Anchors = [akTop, akRight]
     BorderSpacing.Right = 20
     Caption = 'AutoStart'
+    OnChange = AutoStartBoxChange
     TabOrder = 4
   end
   object StartBtn: TSpeedButton
@@ -125,7 +126,7 @@ object MainForm: TMainForm
     Align = alBottom
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Top = 3
-    Font.Height = -13
+    Font.Height = -12
     Font.Name = 'Monospace'
     ParentFont = False
     ReadOnly = True
@@ -197,17 +198,12 @@ object MainForm: TMainForm
     BorderSpacing.Left = 3
     TabOrder = 3
   end
-  object Label5: TLabel
-    AnchorSideTop.Control = AutoStartBox
-    AnchorSideTop.Side = asrCenter
-    AnchorSideBottom.Control = AutoStartBox
-    AnchorSideBottom.Side = asrBottom
+  object ProgressBar1: TProgressBar
     Left = 8
-    Height = 17
-    Top = 119
-    Width = 60
-    Anchors = [akLeft, akBottom]
-    Caption = 'Event log:'
+    Height = 8
+    Top = 120
+    Width = 204
+    TabOrder = 8
   end
   object IniPropStorage1: TIniPropStorage
     StoredValues = <>

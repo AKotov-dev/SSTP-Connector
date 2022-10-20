@@ -46,7 +46,7 @@ begin
     //Connect via ppp0
     ExProcess.Executable := 'bash';
     ExProcess.Parameters.Add('-c');
-    ExProcess.Parameters.Add('[[ $(fping ' + MainForm.RouterEdit.Text + ') ]] || exit 1; chmod +x ' + GetUserDir +
+    ExProcess.Parameters.Add('chmod +x ' + GetUserDir +
       '.config/sstp-connector/connect.sh; sh ' + GetUserDir +
       '.config/sstp-connector/connect.sh');
 
@@ -82,6 +82,7 @@ begin
   begin
     LogMemo.Clear;
     StartBtn.Enabled:=False;
+    ProgressBar1.Style:=pbstMarquee;
   end;
 end;
 
@@ -91,8 +92,7 @@ begin
   with MainForm do
   begin
     StartBtn.Enabled:=True;
-    //Восстанавливаем дефолтный GW и DNS
-    StopBtn.Click;
+    ProgressBar1.Style:=pbstNormal;
     //Сохраняем историю
     IniPropStorage1.Save;
   end;

@@ -43,10 +43,6 @@ msgstr "Сервер[:Порт]:"
 msgid "IP of your Router:"
 msgstr "IP вашего роутера:"
 
-#: tmainform.label5.caption
-msgid "Event log:"
-msgstr "Лог событий:"
-
 #: tmainform.startbtn.caption
 msgctxt "tmainform.startbtn.caption"
 msgid "Start"
@@ -84,3 +80,4 @@ msgstr "Указан неверный IP роутера!"
 #: unit1.sstopvpn
 msgid "VPN is stopped. Switching to a local network..."
 msgstr "VPN остановлена. Переключение на локальную сеть..."
+
