@@ -1,11 +1,11 @@
 object MainForm: TMainForm
   Left = 306
-  Height = 450
+  Height = 521
   Top = 125
-  Width = 716
+  Width = 756
   Caption = 'SSTP-Connector'
-  ClientHeight = 450
-  ClientWidth = 716
+  ClientHeight = 521
+  ClientWidth = 756
   OnCreate = FormCreate
   OnShow = FormShow
   SessionProperties = 'Height;Left;LogMemo.Lines;Top;Width;PasswordEdit.Text;RouterEdit.Text;ServerEdit.Text;UserEdit.Text'
@@ -27,7 +27,7 @@ object MainForm: TMainForm
     Left = 41
     Height = 37
     Top = 6
-    Width = 250
+    Width = 281
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Left = 3
     BorderSpacing.Right = 10
@@ -38,7 +38,7 @@ object MainForm: TMainForm
     AnchorSideLeft.Side = asrBottom
     AnchorSideTop.Control = UserEdit
     AnchorSideTop.Side = asrCenter
-    Left = 301
+    Left = 332
     Height = 17
     Top = 16
     Width = 61
@@ -51,10 +51,10 @@ object MainForm: TMainForm
     AnchorSideLeft.Side = asrBottom
     AnchorSideTop.Control = Label2
     AnchorSideTop.Side = asrCenter
-    Left = 365
+    Left = 396
     Height = 37
     Top = 6
-    Width = 188
+    Width = 197
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Left = 3
     TabOrder = 1
@@ -77,13 +77,13 @@ object MainForm: TMainForm
     Left = 90
     Height = 37
     Top = 56
-    Width = 201
+    Width = 232
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Left = 3
     TabOrder = 2
   end
   object ClearBox: TCheckBox
-    Left = 519
+    Left = 559
     Height = 32
     Top = 104
     Width = 190
@@ -93,7 +93,7 @@ object MainForm: TMainForm
   end
   object AutoStartBox: TCheckBox
     AnchorSideLeft.Control = StartBtn
-    Left = 416
+    Left = 456
     Height = 32
     Top = 104
     Width = 91
@@ -103,7 +103,7 @@ object MainForm: TMainForm
     TabOrder = 4
   end
   object StartBtn: TSpeedButton
-    Left = 579
+    Left = 619
     Height = 38
     Top = 6
     Width = 130
@@ -115,9 +115,9 @@ object MainForm: TMainForm
     AnchorSideTop.Control = ClearBox
     AnchorSideTop.Side = asrBottom
     Left = 0
-    Height = 291
+    Height = 362
     Top = 139
-    Width = 716
+    Width = 756
     Align = alBottom
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Top = 3
@@ -133,7 +133,7 @@ object MainForm: TMainForm
     AnchorSideTop.Side = asrCenter
     AnchorSideBottom.Control = RouterEdit
     AnchorSideBottom.Side = asrBottom
-    Left = 579
+    Left = 619
     Height = 38
     Top = 53
     Width = 130
@@ -144,8 +144,8 @@ object MainForm: TMainForm
   object StaticText1: TStaticText
     Left = 0
     Height = 20
-    Top = 430
-    Width = 716
+    Top = 501
+    Width = 756
     Align = alBottom
     Caption = 'License: GPLv3   Author: alex_q_2000 (C) 2022   URL: https://linuxforum.ru'
     Font.Color = clGray
@@ -159,7 +159,7 @@ object MainForm: TMainForm
     AnchorSideTop.Control = StartBtn
     AnchorSideTop.Side = asrCenter
     AnchorSideRight.Control = StartBtn
-    Left = 562
+    Left = 602
     Height = 12
     Top = 19
     Width = 12
@@ -172,7 +172,7 @@ object MainForm: TMainForm
   object Label4: TLabel
     AnchorSideLeft.Control = Label2
     AnchorSideTop.Side = asrCenter
-    Left = 301
+    Left = 332
     Height = 17
     Top = 64
     Width = 103
@@ -185,10 +185,10 @@ object MainForm: TMainForm
     AnchorSideTop.Side = asrCenter
     AnchorSideRight.Control = PasswordEdit
     AnchorSideRight.Side = asrBottom
-    Left = 407
+    Left = 438
     Height = 37
     Top = 54
-    Width = 146
+    Width = 155
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Left = 3
     TabOrder = 3

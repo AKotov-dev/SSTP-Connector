@@ -15,7 +15,7 @@ msgstr ""
 #: tmainform.autostartbox.caption
 msgctxt "tmainform.autostartbox.caption"
 msgid "AutoStart"
-msgstr ""
+msgstr "Автостарт"
 
 #: tmainform.caption
 msgid "SSTP-Connector"
@@ -24,64 +24,63 @@ msgstr ""
 #: tmainform.clearbox.caption
 msgctxt "tmainform.clearbox.caption"
 msgid "Clear cookies on start GUI"
-msgstr ""
+msgstr "Очистить cookies при старте GUI"
 
 #: tmainform.label1.caption
 msgid "User:"
-msgstr ""
+msgstr "Пользователь:"
 
 #: tmainform.label2.caption
 msgctxt "tmainform.label2.caption"
 msgid "Password:"
-msgstr ""
+msgstr "Пароль:"
 
 #: tmainform.label3.caption
 msgid "Server[:Port]:"
-msgstr ""
+msgstr "Сервер[:Порт]:"
 
 #: tmainform.label4.caption
 msgid "IP of your Router:"
-msgstr ""
+msgstr "IP вашего роутера:"
 
 #: tmainform.label5.caption
 msgid "Event log:"
-msgstr ""
+msgstr "Лог событий:"
 
 #: tmainform.startbtn.caption
 msgctxt "tmainform.startbtn.caption"
 msgid "Start"
-msgstr ""
+msgstr "Старт"
 
 #: tmainform.statictext1.caption
 msgid "License: GPLv3   Author: alex_q_2000 (C) 2022   URL: https://linuxforum.ru"
-msgstr ""
+msgstr "Лицензия: GPLv3   Автор: alex_q_2000 (C) 2022   URL: https://linuxforum.ru"
 
 #: tmainform.stopbtn.caption
 msgctxt "tmainform.stopbtn.caption"
 msgid "Stop/Reset"
-msgstr ""
+msgstr "Стоп/Сброс"
 
 #: unit1.scheckrouterip
 msgid "Checking the router's IP..."
-msgstr ""
+msgstr "Проверка IP вашего роутера..."
 
 #: unit1.sconnectgetip
 msgid "Connection/Getting an IP (ppp0), wait..."
-msgstr ""
+msgstr "Подключение/Получение IP (ppp0), ждите..."
 
 #: unit1.sconnectyes
 msgid "The connection is established:"
-msgstr ""
+msgstr "Соединение установлено:"
 
 #: unit1.sdefaultgw
 msgid "Default route changed:"
-msgstr ""
+msgstr "Дефолтный маршрут изменён:"
 
 #: unit1.sinvalidrouterip
 msgid "Invalid router IP is specified!"
-msgstr ""
+msgstr "Указан неверный IP роутера!"
 
 #: unit1.sstopvpn
 msgid "VPN is stopped. Switching to a local network..."
-msgstr ""
-
+msgstr "VPN остановлена. Переключение на локальную сеть..."
