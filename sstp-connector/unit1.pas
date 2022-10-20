@@ -30,6 +30,8 @@ type
     StartBtn: TSpeedButton;
     StopBtn: TSpeedButton;
     StaticText1: TStaticText;
+    procedure AutoStartBoxChange(Sender: TObject);
+    procedure ClearBoxChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure StartBtnClick(Sender: TObject);
@@ -99,6 +101,30 @@ begin
   Screen.Cursor := crDefault;
 end;
 
+//Проверка чекбокса ClearBox (очистка кеш/cookies)
+function CheckClear: boolean;
+begin
+  if FileExists(GetUserDir + '.config/sstp-connector/clear') then
+    Result := True
+  else
+    Result := False;
+end;
+
+//Проверка чекбокса AutoStart
+function CheckAutoStart: boolean;
+var
+  S: ansistring;
+begin
+  RunCommand('/bin/bash', ['-c',
+    '[[ -n $(systemctl is-enabled sstp-connector | grep "enabled") ]] && echo "yes"'],
+    S);
+
+  if Trim(S) = 'yes' then
+    Result := True
+  else
+    Result := False;
+end;
+
 procedure TMainForm.FormCreate(Sender: TObject);
 var
   FCheckPingThread: TThread;
@@ -117,9 +143,36 @@ begin
   FCheckPingThread.Priority := tpNormal;
 end;
 
+procedure TMainForm.ClearBoxChange(Sender: TObject);
+var
+  S: ansistring;
+begin
+  if not ClearBox.Checked then
+    RunCommand('/bin/bash', ['-c', 'rm -f ~/.config/sstp-connector/clear'], S)
+  else
+    RunCommand('/bin/bash', ['-c', 'touch ~/.config/sstp-connector/clear'], S);
+end;
+
+procedure TMainForm.AutoStartBoxChange(Sender: TObject);
+var
+  S: ansistring;
+begin
+  Screen.Cursor := crHourGlass;
+  Application.ProcessMessages;
+
+  if not AutoStartBox.Checked then
+    RunCommand('/bin/bash', ['-c', 'systemctl disable sstp-connector.service'], S)
+  else
+    RunCommand('/bin/bash', ['-c', 'systemctl enable sstp-connector.service'], S);
+  Screen.Cursor := crDefault;
+end;
+
 procedure TMainForm.FormShow(Sender: TObject);
 begin
   IniPropStorage1.Restore;
+
+  AutostartBox.Checked := CheckAutoStart;
+  ClearBox.Checked := CheckClear;
 end;
 
 procedure TMainForm.StartBtnClick(Sender: TObject);

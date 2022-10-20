@@ -89,16 +89,20 @@ object MainForm: TMainForm
     Width = 190
     Anchors = [akTop, akRight]
     Caption = 'Clear cookies on start GUI'
+    OnChange = ClearBoxChange
     TabOrder = 5
   end
   object AutoStartBox: TCheckBox
     AnchorSideLeft.Control = StartBtn
-    Left = 456
+    AnchorSideTop.Control = ClearBox
+    AnchorSideTop.Side = asrCenter
+    AnchorSideRight.Control = ClearBox
+    Left = 448
     Height = 32
     Top = 104
     Width = 91
     Anchors = [akTop, akRight]
-    BorderSpacing.Right = 10
+    BorderSpacing.Right = 20
     Caption = 'AutoStart'
     TabOrder = 4
   end
