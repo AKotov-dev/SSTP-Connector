@@ -87,6 +87,9 @@ procedure TMainForm.IPRouterCheck;
 var
   GWPing: ansistring;
 begin
+  //Проверка на пустоту
+  if (Trim(UserEdit.Text) = '') or (Trim(PasswordEdit.Text) = '') then Abort;
+
   Screen.Cursor := crHourGlass;
   LogMemo.Text := SCheckRouterIP;
   Application.ProcessMessages;
