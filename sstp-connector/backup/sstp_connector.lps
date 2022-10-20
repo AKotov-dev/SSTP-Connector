@@ -50,7 +50,7 @@
         <UnitName Value="Unit1"/>
         <IsVisibleTab Value="True"/>
         <TopLine Value="75"/>
-        <CursorPos X="69" Y="91"/>
+        <CursorPos X="37" Y="82"/>
         <UsageCount Value="29"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -66,14 +66,13 @@
         <Filename Value="pingtrd.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="PingTRD"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="56"/>
         <CursorPos Y="81"/>
         <UsageCount Value="25"/>
-        <Loaded Value="True"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="11">
+    <JumpHistory HistoryIndex="10">
       <Position>
         <Filename Value="unit1.pas"/>
         <Caret Line="106" Column="59" TopLine="96"/>
@@ -113,10 +112,6 @@
       <Position>
         <Filename Value="unit1.pas"/>
         <Caret Line="230" Column="54" TopLine="223"/>
-      </Position>
-      <Position>
-        <Filename Value="pingtrd.pas"/>
-        <Caret Line="75" Column="72" TopLine="57"/>
       </Position>
       <Position>
         <Filename Value="unit1.pas"/>

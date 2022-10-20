@@ -259,10 +259,8 @@ begin
 
   LogMemo.Text := SStopVPN;
 
-  Application.ProcessMessages;
-  StartProcess('pkill sstpc; ip route del default; ip route add default via ' +
-    RouterEdit.Text + '; "' + ExtractFileDir(Application.ExeName) +
-    '/update-resolv-conf" down; ' + 'pkill -f /etc/sstp-connector/connect.sh');
+  if FileExists('/etc/sstp-connector/stop-connect.sh') then
+    StartProcess('/etc/sstp-connector/stop-connect.sh');
 
   Shape1.Brush.Color := clYellow;
   Shape1.Repaint;
