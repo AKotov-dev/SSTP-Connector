@@ -200,7 +200,7 @@ begin
     //Проверка пинга Router IP
     S.Add('[[ $(fping ' + RouterEdit.Text + ') ]] || exit 1');
 
-    //Подключаемся к серверу
+    //Подключаемся к серверу (от --log-level зависим выход из потока, min=2)
     S.Add('sstpc --log-level 2 --log-stdout --save-server-route --tls-ext --cert-warn --user ' +
       UserEdit.Text + ' --password ' + PasswordEdit.Text + ' ' +
       ServerEdit.Text + ' noauth &');

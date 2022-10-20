@@ -199,9 +199,11 @@ object MainForm: TMainForm
     TabOrder = 3
   end
   object ProgressBar1: TProgressBar
+    AnchorSideTop.Control = AutoStartBox
+    AnchorSideTop.Side = asrCenter
     Left = 8
-    Height = 8
-    Top = 120
+    Height = 10
+    Top = 115
     Width = 204
     TabOrder = 8
   end
