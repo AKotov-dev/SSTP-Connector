@@ -194,14 +194,14 @@ begin
     S.Add('ip route | grep ppp0');
 
     S.Add('');
-    S.Add('exit 0;');
+    S.Add('exit 0');
 
     S.SaveToFile('/etc/sstp-connector/connect.sh');
 
     FStartConnect := StartConnect.Create(False);
     FStartConnect.Priority := tpNormal;
 
-    //Файл останова VPN (возврат Default-GW и DNS) для systemd
+    //Файл останова VPN (возврат DNS) для systemd
     S.Clear;
 
     S.Add('#!/bin/bash');

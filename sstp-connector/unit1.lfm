@@ -72,12 +72,12 @@ object MainForm: TMainForm
     AnchorSideLeft.Side = asrBottom
     AnchorSideTop.Control = Label3
     AnchorSideTop.Side = asrCenter
-    AnchorSideRight.Control = UserEdit
+    AnchorSideRight.Control = PasswordEdit
     AnchorSideRight.Side = asrBottom
     Left = 90
     Height = 37
     Top = 56
-    Width = 269
+    Width = 580
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Left = 3
     TabOrder = 2
@@ -181,7 +181,7 @@ object MainForm: TMainForm
     Left = 8
     Height = 10
     Top = 115
-    Width = 230
+    Width = 334
     Anchors = [akTop, akLeft, akRight]
     TabOrder = 7
   end

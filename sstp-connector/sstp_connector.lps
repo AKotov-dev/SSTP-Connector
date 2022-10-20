@@ -39,7 +39,7 @@
         <Filename Value="sstp_connector.lpr"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="30"/>
+        <UsageCount Value="31"/>
       </Unit>
       <Unit>
         <Filename Value="unit1.pas"/>
@@ -49,9 +49,9 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="203"/>
-        <CursorPos X="34" Y="204"/>
-        <UsageCount Value="30"/>
+        <TopLine Value="146"/>
+        <CursorPos X="46" Y="155"/>
+        <UsageCount Value="31"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -60,7 +60,7 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="25" Y="3"/>
-        <UsageCount Value="29"/>
+        <UsageCount Value="30"/>
       </Unit>
       <Unit>
         <Filename Value="pingtrd.pas"/>
@@ -69,7 +69,7 @@
         <EditorIndex Value="1"/>
         <TopLine Value="55"/>
         <CursorPos Y="79"/>
-        <UsageCount Value="26"/>
+        <UsageCount Value="27"/>
         <Loaded Value="True"/>
       </Unit>
     </Units>
