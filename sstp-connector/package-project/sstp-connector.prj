@@ -78,5 +78,6 @@ toolversion=2.2.0
 [INFO]
 0=v0.2
 1=+ Improved output of the sstp connection log
-2=
-3=v0.1 - initial release
+2=+ Added ppp options: defaultroute & replacedefaultroute
+3=
+4=v0.1 - initial release
