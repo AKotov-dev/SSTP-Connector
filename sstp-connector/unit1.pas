@@ -194,9 +194,9 @@ begin
     S.Add('');
 
     //Восстанавливаем дефолтный шлюз и DNS
-    S.Add('pkill sstpc; ip route del default; ip route add default via ' +
+   { S.Add('pkill sstpc; ip route del default; ip route add default via ' +
       RouterEdit.Text);
-    S.Add('"' + ExtractFileDir(Application.ExeName) + '/update-resolv-conf" down');
+    S.Add('"' + ExtractFileDir(Application.ExeName) + '/update-resolv-conf" down');}
 
     //Подключаемся к серверу (от --log-level зависим выход из потока, min=2)
     S.Add('sstpc --log-level 3 --log-stdout --save-server-route --tls-ext --cert-warn --user '

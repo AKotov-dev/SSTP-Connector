@@ -46,7 +46,6 @@ type
 
 //Ресурсы перевода
 resourcestring
-  SConnectGetIP = 'Connection/Getting an IP (ppp0), wait...';
   SConnectYes = 'The connection is established:';
   SDefaultGW = 'Default route changed:';
   SStopVPN = 'VPN is stopped. Switching to a local network...';
@@ -208,10 +207,8 @@ begin
     S.Add('count=0');
     S.Add('while [[ -z $(ip a show ppp0 2>/dev/null | grep inet) ]]; do');
 
-    //S.Add('echo "' + SConnectGetIP + '" $count');
     S.Add('sleep 1');
     S.Add('count=$(( $count + 1 ))');
-    S.Add('[[ $count == 2 ]] && exit 1');
     S.Add('done');
 
     S.Add('echo -e "\n' + SConnectYes + '\n---"');
