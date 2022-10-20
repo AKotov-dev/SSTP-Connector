@@ -104,7 +104,6 @@ object MainForm: TMainForm
     Anchors = [akTop, akRight]
     BorderSpacing.Right = 20
     Caption = 'AutoStart'
-    Enabled = False
     OnChange = AutoStartBoxChange
     TabOrder = 4
   end

@@ -104,7 +104,7 @@ end;
 //Проверка чекбокса ClearBox (очистка кеш/cookies)
 function CheckClear: boolean;
 begin
-  if FileExists(GetUserDir + '.config/sstp-connector/clear') then
+  if FileExists('/etc/sstp-connector/clear') then
     Result := True
   else
     Result := False;
@@ -132,11 +132,9 @@ begin
   MainForm.Caption := Application.Title;
 
   //Создаём рабочую директорию
-  if not DirectoryExists(GetUserDir + '.config') then MkDir('/root/.config');
-  if not DirectoryExists(GetUserDir + '.config/sstp-connector') then
-    MkDir(GetUserDir + '.config/sstp-connector');
+  if not DirectoryExists('/etc/sstp-connector') then MkDir('/etc/sstp-connector');
 
-  IniPropStorage1.IniFileName := GetUserDir + '.config/sstp-connector/settings.conf';
+  IniPropStorage1.IniFileName := '/etc/sstp-connector/settings.conf';
 
   //Поток проверки пинга
   FCheckPingThread := CheckPing.Create(False);
@@ -148,9 +146,9 @@ var
   S: ansistring;
 begin
   if not ClearBox.Checked then
-    RunCommand('/bin/bash', ['-c', 'rm -f ~/.config/sstp-connector/clear'], S)
+    RunCommand('/bin/bash', ['-c', 'rm -f /etc/sstp-connector/clear'], S)
   else
-    RunCommand('/bin/bash', ['-c', 'touch ~/.config/sstp-connector/clear'], S);
+    RunCommand('/bin/bash', ['-c', 'touch /etc/sstp-connector/clear'], S);
 end;
 
 procedure TMainForm.AutoStartBoxChange(Sender: TObject);
@@ -227,7 +225,7 @@ begin
     S.Add('');
     S.Add('exit 0;');
 
-    S.SaveToFile(GetUserDir + '.config/sstp-connector/connect.sh');
+    S.SaveToFile('/etc/sstp-connector/connect.sh');
 
     FStartConnect := StartConnect.Create(False);
     FStartConnect.Priority := tpNormal;
@@ -236,7 +234,7 @@ begin
   end;
 end;
 
-//Down ppp0  (pkill -f /root/.config/sstp-connector/connect.sh)
+//Down ppp0  (pkill -f /etc/sstp-connector/connect.sh)
 procedure TMainForm.StopBtnClick(Sender: TObject);
 begin
   //Проверка IP роутера иначе будут возвращены неправильные настройки
@@ -244,9 +242,10 @@ begin
 
   LogMemo.Text := SStopVPN;
 
+  Application.ProcessMessages;
   StartProcess('pkill sstpc; ip route del default; ip route add default via ' +
     RouterEdit.Text + '; "' + ExtractFileDir(Application.ExeName) +
-    '/update-resolv-conf" down; ' + 'pkill -f /root/.config/sstp-connector/connect.sh');
+    '/update-resolv-conf" down; ' + 'pkill -f /etc/sstp-connector/connect.sh');
 
   Shape1.Brush.Color := clYellow;
   Shape1.Repaint;

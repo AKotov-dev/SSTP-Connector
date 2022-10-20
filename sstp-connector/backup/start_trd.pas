@@ -81,8 +81,10 @@ begin
   with MainForm do
   begin
     LogMemo.Clear;
-    StartBtn.Enabled:=False;
-    ProgressBar1.Style:=pbstMarquee;
+    StartBtn.Enabled := False;
+    ProgressBar1.Style := pbstMarquee;
+    StartBtn.Refresh;
+    ProgressBar1.Refresh;
   end;
 end;
 
@@ -91,8 +93,11 @@ procedure StartConnect.StopProgress;
 begin
   with MainForm do
   begin
-    StartBtn.Enabled:=True;
-    ProgressBar1.Style:=pbstNormal;
+    StartBtn.Enabled := True;
+    ProgressBar1.Style := pbstNormal;
+    StartBtn.Refresh;
+    ProgressBar1.Refresh;
+
     //Сохраняем историю
     IniPropStorage1.Save;
   end;

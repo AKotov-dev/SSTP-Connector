@@ -46,9 +46,8 @@ begin
     //Connect via ppp0
     ExProcess.Executable := 'bash';
     ExProcess.Parameters.Add('-c');
-    ExProcess.Parameters.Add('chmod +x ' + GetUserDir +
-      '.config/sstp-connector/connect.sh; sh ' + GetUserDir +
-      '.config/sstp-connector/connect.sh');
+    ExProcess.Parameters.Add('chmod +x /etc/sstp-connector/connect.sh; bash ' +
+      '/etc/sstp-connector/connect.sh');
 
     ExProcess.Options := [poUsePipes, poStderrToOutPut];
     //, poWaitOnExit (синхронный вывод)
