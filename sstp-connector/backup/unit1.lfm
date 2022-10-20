@@ -181,7 +181,7 @@ object MainForm: TMainForm
     Left = 8
     Height = 10
     Top = 115
-    Width = 230
+    Width = 334
     Anchors = [akTop, akLeft, akRight]
     TabOrder = 7
   end
