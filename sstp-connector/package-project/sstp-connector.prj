@@ -5,7 +5,7 @@ name=sstp-connector
 version=0.2
 
 [RELEASE]
-release=1.mrx9
+release=2.mrx9
 
 [GROUP]
 group=Applications/System
@@ -61,10 +61,7 @@ deb=0
 
 [AFTERREMOVE]
 0=systemctl daemon-reload
-
-[BEFOREREMOVE]
-0=#Окончательное удаление
-1=[ $1 -eq 0 ] && sed -i "/defaultroute/d" /etc/ppp/options
+1=if [ $1 -eq 0 ]; then sed -i "/defaultroute/d" /etc/ppp/options; fi
 
 [URL32]
 url32=https://github.com/AKotov-dev/SSTP-Connector
@@ -86,5 +83,6 @@ toolversion=2.2.0
 1=+ Improved output of the sstp connection log
 2=+ Added ppp options: defaultroute & replacedefaultroute (rpm)
 3=+ Definition of DE when starting from root (kdesu/pkexec)
-4=
-5=v0.1 - initial release
+4=+ DNS leak protection (/usr/share/sstp-connector/update-resolv-conf)
+5=
+6=v0.1 - initial release
