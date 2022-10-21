@@ -1,6 +1,6 @@
 {"version":1,"strings":[
 {"hash":209318042,"name":"unit1.sconnectyes","sourcebytes":[84,104,101,32,99,111,110,110,101,99,116,105,111,110,32,105,115,32,101,115,116,97,98,108,105,115,104,101,100,58],"value":"The connection is established:"},
-{"hash":9003450,"name":"unit1.sdefaultgw","sourcebytes":[68,101,102,97,117,108,116,32,114,111,117,116,101,32,99,104,97,110,103,101,100,58],"value":"Default route changed:"},
+{"hash":207490378,"name":"unit1.sdefaultgw","sourcebytes":[68,101,102,97,117,108,116,32,114,111,117,116,101,58],"value":"Default route:"},
 {"hash":590254,"name":"unit1.sstopvpn","sourcebytes":[86,80,78,32,105,115,32,115,116,111,112,112,101,100,46,32,83,119,105,116,99,104,105,110,103,32,116,111,32,97,32,108,111,99,97,108,32,110,101,116,119,111,114,107,46,46,46],"value":"VPN is stopped. Switching to a local network..."},
 {"hash":260796654,"name":"unit1.scheckrouterip","sourcebytes":[67,104,101,99,107,105,110,103,32,116,104,101,32,114,111,117,116,101,114,39,115,32,73,80,46,46,46],"value":"Checking the router's IP..."},
 {"hash":63590817,"name":"unit1.sinvalidrouterip","sourcebytes":[73,110,118,97,108,105,100,32,114,111,117,116,101,114,32,73,80,32,105,115,32,115,112,101,99,105,102,105,101,100,33],"value":"Invalid router IP is specified!"}

@@ -56,9 +56,15 @@ deb=0
 
 [AFTERINSTALL]
 0=systemctl daemon-reload
+1=[ $(grep "^defaultroute$" /etc/ppp/options) ] || echo "defaultroute" >> /etc/ppp/options
+2=[ $(grep "^replacedefaultroute$" /etc/ppp/options) ] || echo "replacedefaultroute" >> /etc/ppp/options
 
 [AFTERREMOVE]
 0=systemctl daemon-reload
+
+[BEFOREREMOVE]
+0=#Окончательное удаление
+1=[ $1 -eq 0 ] && sed -i "/defaultroute/d" /etc/ppp/options
 
 [URL32]
 url32=https://github.com/AKotov-dev/SSTP-Connector
@@ -78,6 +84,6 @@ toolversion=2.2.0
 [INFO]
 0=v0.2
 1=+ Improved output of the sstp connection log
-2=+ Added ppp options: defaultroute & replacedefaultroute
+2=+ Added ppp options: defaultroute & replacedefaultroute (rpm)
 3=
 4=v0.1 - initial release

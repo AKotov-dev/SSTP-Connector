@@ -1,7 +1,7 @@
 object MainForm: TMainForm
-  Left = 306
+  Left = 308
   Height = 610
-  Top = 125
+  Top = 126
   Width = 833
   Caption = 'SSTP-Connector'
   ClientHeight = 610
@@ -181,7 +181,7 @@ object MainForm: TMainForm
     Left = 8
     Height = 10
     Top = 115
-    Width = 280
+    Width = 208
     Anchors = [akTop, akLeft, akRight]
     TabOrder = 7
   end

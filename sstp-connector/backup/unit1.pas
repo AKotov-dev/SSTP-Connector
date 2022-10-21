@@ -13,6 +13,7 @@ type
   { TMainForm }
 
   TMainForm = class(TForm)
+    CheckBox1: TCheckBox;
     ClearBox: TCheckBox;
     AutoStartBox: TCheckBox;
     ProgressBar1: TProgressBar;
@@ -45,7 +46,7 @@ type
 //Ресурсы перевода
 resourcestring
   SConnectYes = 'The connection is established:';
-  SDefaultGW = 'Default route changed:';
+  SDefaultGW = 'Default route:';
   SStopVPN = 'VPN is stopped. Switching to a local network...';
   SCheckRouterIP = 'Checking the router' + '''' + 's IP...';
   SInValidRouterIP = 'Invalid router IP is specified!';

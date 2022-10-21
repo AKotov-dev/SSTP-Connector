@@ -45,7 +45,7 @@ type
 //Ресурсы перевода
 resourcestring
   SConnectYes = 'The connection is established:';
-  SDefaultGW = 'Default route changed:';
+  SDefaultGW = 'Default route:';
   SStopVPN = 'VPN is stopped. Switching to a local network...';
   SCheckRouterIP = 'Checking the router' + '''' + 's IP...';
   SInValidRouterIP = 'Invalid router IP is specified!';

@@ -62,8 +62,8 @@ msgid "The connection is established:"
 msgstr "Соединение установлено:"
 
 #: unit1.sdefaultgw
-msgid "Default route changed:"
-msgstr "Дефолтный маршрут изменён:"
+msgid "Default route:"
+msgstr "Дефолтный маршрут:"
 
 #: unit1.sinvalidrouterip
 msgid "Invalid router IP is specified!"

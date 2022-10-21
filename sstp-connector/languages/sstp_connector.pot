@@ -51,7 +51,7 @@ msgid "The connection is established:"
 msgstr ""
 
 #: unit1.sdefaultgw
-msgid "Default route changed:"
+msgid "Default route:"
 msgstr ""
 
 #: unit1.sinvalidrouterip
