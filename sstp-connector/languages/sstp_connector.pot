@@ -1,0 +1,64 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: tmainform.autostartbox.caption
+msgctxt "tmainform.autostartbox.caption"
+msgid "AutoStart"
+msgstr ""
+
+#: tmainform.caption
+msgid "SSTP-Connector"
+msgstr ""
+
+#: tmainform.clearbox.caption
+msgctxt "tmainform.clearbox.caption"
+msgid "Clear cookies on start GUI"
+msgstr ""
+
+#: tmainform.defroutebox.caption
+msgid "Default route (ppp0)"
+msgstr ""
+
+#: tmainform.label1.caption
+msgid "User:"
+msgstr ""
+
+#: tmainform.label2.caption
+msgctxt "tmainform.label2.caption"
+msgid "Password:"
+msgstr ""
+
+#: tmainform.label3.caption
+msgid "Server[:Port]:"
+msgstr ""
+
+#: tmainform.startbtn.caption
+msgctxt "tmainform.startbtn.caption"
+msgid "Start"
+msgstr ""
+
+#: tmainform.statictext1.caption
+msgid "License: GPLv3   Author: alex_q_2000 (C) 2022   URL: https://linuxforum.ru"
+msgstr ""
+
+#: tmainform.stopbtn.caption
+msgctxt "tmainform.stopbtn.caption"
+msgid "Stop/Reset"
+msgstr ""
+
+#: unit1.sconnectyes
+msgid "The connection is established:"
+msgstr ""
+
+#: unit1.sdefaultgw
+msgid "Default route:"
+msgstr ""
+
+#: unit1.sdns
+msgid "Active DNS:"
+msgstr ""
+
+#: unit1.sstopvpn
+msgid "VPN is stopped. Switching to a local network..."
+msgstr ""
+
