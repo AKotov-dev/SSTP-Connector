@@ -79,10 +79,9 @@ toolversion=2.2.0
 
 [INFO]
 0=v0.3
-1=+ Stable release
+1=+ Release for Mageia-9 and higher
 2=+ Improved output of the sstp connection log
-3=+ Added ppp options: defaultroute & replacedefaultroute (rpm)
-4=+ Definition of DE when starting from root (kdesu/pkexec)
-5=+ DNS leak protection (/usr/share/sstp-connector/update-resolv-conf)
-6=
-7=v0.1 - initial release
+3=+ Definition of DE when starting from root (kdesu/pkexec)
+4=+ DNS leak protection (/etc/sstp-connector/update-resolv-conf)
+5=
+6=v0.1 - initial release
