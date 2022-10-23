@@ -1,7 +1,7 @@
 #!/bin/bash
 
 pkill sstpc
-/etc/sstp-connector/update-resolv-conf down
 pkill -f /etc/sstp-connector/connect.sh
+/etc/sstp-connector/update-resolv-conf down
 
-exit 0;
+exit 0
