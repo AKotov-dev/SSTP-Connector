@@ -79,12 +79,10 @@ toolversion=2.2.0
 
 [INFO]
 0=v0.3
-1=+ stable release
-2=
-3=v0.2
-4=+ Improved output of the sstp connection log
-5=+ Added ppp options: defaultroute & replacedefaultroute (rpm)
-6=+ Definition of DE when starting from root (kdesu/pkexec)
-7=+ DNS leak protection (/usr/share/sstp-connector/update-resolv-conf)
-8=
-9=v0.1 - initial release
+1=+ Stable release
+2=+ Improved output of the sstp connection log
+3=+ Added ppp options: defaultroute & replacedefaultroute (rpm)
+4=+ Definition of DE when starting from root (kdesu/pkexec)
+5=+ DNS leak protection (/usr/share/sstp-connector/update-resolv-conf)
+6=
+7=v0.1 - initial release
