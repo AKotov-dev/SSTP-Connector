@@ -4,8 +4,8 @@ After=network-online.target
 Wants=network-online.target
 
 [Service]
-Type=forking
-ExecStart=/etc/sstp-connector/connect.sh
+Type=simple
+ExecStart=/etc/sstp-connector/connect-systemd.sh
 ExecStop=/etc/sstp-connector/stop-connect.sh
 Restart=on-failure
 

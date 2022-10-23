@@ -173,6 +173,26 @@ begin
     S.Add('#!/bin/bash');
     S.Add('');
 
+    //Содаём пускач для systemd (Type=simple)
+    S.Add('sstpc --save-server-route --tls-ext --cert-warn --user ' +
+      UserEdit.Text + ' --password ' + PasswordEdit.Text + ' ' +
+      ServerEdit.Text + ' noauth ' + DefRoute);
+
+    //Если VPN глобальный - заменить DNS
+    if DefRouteBox.Checked then
+      S.Add('/etc/sstp-connector/update-resolv-conf up');
+    S.Add('');
+    S.Add('exit 0');
+
+    S.SaveToFile('/etc/sstp-connector/connect-systemd.sh');
+    StartProcess('chmod +x /etc/sstp-connector/connect-systemd.sh');
+
+    //Создаём пускач для запуска через GUI
+    S.Clear;
+
+    S.Add('#!/bin/bash');
+    S.Add('');
+
     //Подключаемся к серверу (от --log-level зависим выход из потока, min=2)
     S.Add('sstpc --log-level 3 --log-stdout --save-server-route --tls-ext --cert-warn --user '
       + UserEdit.Text + ' --password ' + PasswordEdit.Text + ' ' +
@@ -209,6 +229,7 @@ begin
 
     S.SaveToFile('/etc/sstp-connector/connect.sh');
 
+    //Запускаем скрипт
     FStartConnect := StartConnect.Create(False);
     FStartConnect.Priority := tpNormal;
 

@@ -173,6 +173,17 @@ begin
     S.Add('#!/bin/bash');
     S.Add('');
 
+    //Содаём пускач для systemd (Type=simple)
+    S.Add('sstpc --save-server-route --tls-ext --cert-warn --user ' +
+      UserEdit.Text + ' --password ' + PasswordEdit.Text + ' ' +
+      ServerEdit.Text + ' noauth ' + DefRoute);
+
+    S.SaveToFile('/etc/sstp-connector/connect-systemd.sh');
+    StartProcess('chmod +x /etc/sstp-connector/connect-systemd.sh');
+
+    S.Delete(2);
+
+    //Создаём пускач для запуска через GUI
     //Подключаемся к серверу (от --log-level зависим выход из потока, min=2)
     S.Add('sstpc --log-level 3 --log-stdout --save-server-route --tls-ext --cert-warn --user '
       + UserEdit.Text + ' --password ' + PasswordEdit.Text + ' ' +
@@ -189,14 +200,14 @@ begin
     S.Add('echo -e "\n' + SConnectYes + '\n---"');
     S.Add('ip a show ppp0');
 
-    //Адрес получен и выбран ppp0 - маршрут по умолчанию, заменить DNS (глобальный VPN)
-    if DefRouteBox.Checked then
-      S.Add('/etc/sstp-connector/update-resolv-conf up');
-
     S.Add('echo -e "\n' + SDefaultGW + '\n---"');
 
+    //Если VPN глобальный - заменить DNS
     if DefRouteBox.Checked then
-      S.Add('ip route | grep ppp0')
+    begin
+      S.Add('/etc/sstp-connector/update-resolv-conf up');
+      S.Add('ip route | grep ppp0');
+    end
     else
       S.Add('ip route | grep default');
 
@@ -209,6 +220,7 @@ begin
 
     S.SaveToFile('/etc/sstp-connector/connect.sh');
 
+    //Запускаем скрипт
     FStartConnect := StartConnect.Create(False);
     FStartConnect.Priority := tpNormal;
 
