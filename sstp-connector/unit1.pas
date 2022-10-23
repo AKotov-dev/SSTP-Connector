@@ -189,14 +189,14 @@ begin
     S.Add('echo -e "\n' + SConnectYes + '\n---"');
     S.Add('ip a show ppp0');
 
-    //Адрес получен и выбран ppp0 - маршрут по умолчанию, заменить DNS (глобальный VPN)
-    if DefRouteBox.Checked then
-      S.Add('/etc/sstp-connector/update-resolv-conf up');
-
     S.Add('echo -e "\n' + SDefaultGW + '\n---"');
 
+    //Если VPN глобальный - заменить DNS
     if DefRouteBox.Checked then
-      S.Add('ip route | grep ppp0')
+    begin
+      S.Add('/etc/sstp-connector/update-resolv-conf up');
+      S.Add('ip route | grep ppp0');
+    end
     else
       S.Add('ip route | grep default');
 

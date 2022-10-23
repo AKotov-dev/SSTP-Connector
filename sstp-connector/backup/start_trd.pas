@@ -47,7 +47,7 @@ begin
     ExProcess.Executable := 'bash';
     ExProcess.Parameters.Add('-c');
     ExProcess.Parameters.Add('chmod +x /etc/sstp-connector/connect.sh; bash ' +
-      '/etc/sstp-connector/connect.sh;'); //echo "---"
+      '/etc/sstp-connector/connect.sh; echo "---"');
 
     ExProcess.Options := [poUsePipes, poStderrToOutPut];
     //, poWaitOnExit (синхронный вывод)
@@ -58,8 +58,6 @@ begin
     while ExProcess.Running do
     begin
       Result.LoadFromStream(ExProcess.Output);
-
-      //   if Trim(Result[0]) = '---' then MainForm.ProgressBar1.Style := pbstNormal;
 
       //Выводим лог
       if Result.Count <> 0 then

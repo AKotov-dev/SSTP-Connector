@@ -5,7 +5,7 @@ unit start_trd;
 interface
 
 uses
-  Classes, Process, SysUtils, ComCtrls, Forms;
+  Classes, Process, SysUtils, ComCtrls;
 
 type
   StartConnect = class(TThread)
@@ -50,7 +50,6 @@ begin
       '/etc/sstp-connector/connect.sh; echo "---"');
 
     ExProcess.Options := [poUsePipes, poStderrToOutPut];
-    //, poWaitOnExit (синхронный вывод)
 
     ExProcess.Execute;
 
