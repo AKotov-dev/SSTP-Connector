@@ -47,7 +47,7 @@ begin
     ExProcess.Executable := 'bash';
     ExProcess.Parameters.Add('-c');
     ExProcess.Parameters.Add('chmod +x /etc/sstp-connector/connect.sh; bash ' +
-      '/etc/sstp-connector/connect.sh'); //; echo "---"
+      '/etc/sstp-connector/connect.sh; echo "---"');
 
     ExProcess.Options := [poUsePipes, poStderrToOutPut];
 
@@ -89,7 +89,7 @@ procedure StartConnect.StopProgress;
 begin
   with MainForm do
   begin
- //   if Trim(Result[0]) <> '---' then
+    if Trim(Result[0]) <> '---' then
       StartBtn.Enabled := True;
     StartBtn.Refresh;
 

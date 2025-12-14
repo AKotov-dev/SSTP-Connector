@@ -39,6 +39,7 @@
         <Filename Value="sstp_connector.lpr"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
+        <CursorPos X="25"/>
         <UsageCount Value="36"/>
       </Unit>
       <Unit>
@@ -48,7 +49,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
-        <IsVisibleTab Value="True"/>
         <CursorPos X="13"/>
         <UsageCount Value="36"/>
         <Loaded Value="True"/>
@@ -57,6 +57,7 @@
       <Unit>
         <Filename Value="start_trd.pas"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <CursorPos X="17"/>
         <UsageCount Value="35"/>
