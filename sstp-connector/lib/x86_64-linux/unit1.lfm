@@ -2,20 +2,22 @@ object MainForm: TMainForm
   Left = 315
   Height = 610
   Top = 125
-  Width = 833
+  Width = 824
   Caption = 'SSTP-Connector'
   ClientHeight = 610
-  ClientWidth = 833
+  ClientWidth = 824
   SessionProperties = 'Height;Left;LogMemo.Lines;PasswordEdit.Text;RouterEdit.Text;ServerEdit.Text;Top;UserEdit.Text;Width;DefRouteBox.Checked'
   LCLVersion = '4.4.0.0'
   OnCreate = FormCreate
   OnShow = FormShow
   object Label1: TLabel
+    AnchorSideLeft.Control = Owner
     AnchorSideTop.Side = asrCenter
     Left = 8
     Height = 17
     Top = 16
     Width = 27
+    BorderSpacing.Left = 8
     Caption = 'User'
   end
   object UserEdit: TEdit
@@ -27,7 +29,7 @@ object MainForm: TMainForm
     Left = 38
     Height = 37
     Top = 6
-    Width = 322
+    Width = 318
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Left = 3
     BorderSpacing.Right = 10
@@ -39,7 +41,7 @@ object MainForm: TMainForm
     AnchorSideLeft.Side = asrBottom
     AnchorSideTop.Control = UserEdit
     AnchorSideTop.Side = asrCenter
-    Left = 370
+    Left = 366
     Height = 17
     Top = 16
     Width = 58
@@ -52,21 +54,24 @@ object MainForm: TMainForm
     AnchorSideLeft.Side = asrBottom
     AnchorSideTop.Control = Label2
     AnchorSideTop.Side = asrCenter
-    Left = 431
+    AnchorSideRight.Control = Shape1
+    Left = 427
     Height = 37
     Top = 6
-    Width = 239
+    Width = 232
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Left = 3
     TabOrder = 1
     Text = 'vpn'
   end
   object Label3: TLabel
+    AnchorSideLeft.Control = Owner
     AnchorSideTop.Side = asrCenter
     Left = 8
     Height = 17
     Top = 66
     Width = 79
+    BorderSpacing.Left = 8
     Caption = 'Server[:Port]:'
   end
   object ServerEdit: TEdit
@@ -79,17 +84,20 @@ object MainForm: TMainForm
     Left = 90
     Height = 37
     Top = 56
-    Width = 580
+    Width = 569
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Left = 3
     TabOrder = 2
   end
   object ClearBox: TCheckBox
-    Left = 636
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 626
     Height = 32
     Top = 104
     Width = 190
     Anchors = [akTop, akRight]
+    BorderSpacing.Right = 8
     Caption = 'Clear cookies on start GUI'
     TabOrder = 5
     OnChange = ClearBoxChange
@@ -99,7 +107,7 @@ object MainForm: TMainForm
     AnchorSideTop.Control = ClearBox
     AnchorSideTop.Side = asrCenter
     AnchorSideRight.Control = ClearBox
-    Left = 525
+    Left = 515
     Height = 32
     Top = 104
     Width = 91
@@ -111,24 +119,30 @@ object MainForm: TMainForm
   end
   object StartBtn: TSpeedButton
     AnchorSideTop.Control = PasswordEdit
-    Left = 696
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 686
     Height = 38
     Top = 6
     Width = 130
     Anchors = [akTop, akRight]
+    BorderSpacing.Right = 8
     Caption = 'Start'
     OnClick = StartBtnClick
   end
   object LogMemo: TMemo
+    AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = ClearBox
     AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = StaticText1
     Left = 0
-    Height = 451
-    Top = 139
-    Width = 833
-    Align = alBottom
+    Height = 450
+    Top = 140
+    Width = 824
     Anchors = [akTop, akLeft, akRight, akBottom]
-    BorderSpacing.Top = 3
+    BorderSpacing.Top = 4
     Font.Height = -12
     Font.Name = 'Monospace'
     ParentFont = False
@@ -138,13 +152,16 @@ object MainForm: TMainForm
   end
   object StopBtn: TSpeedButton
     AnchorSideTop.Side = asrCenter
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Control = ServerEdit
     AnchorSideBottom.Side = asrBottom
-    Left = 696
+    Left = 686
     Height = 38
     Top = 55
     Width = 130
     Anchors = [akRight, akBottom]
+    BorderSpacing.Right = 8
     Caption = 'Stop/Reset'
     OnClick = StopBtnClick
   end
@@ -152,7 +169,7 @@ object MainForm: TMainForm
     Left = 0
     Height = 20
     Top = 590
-    Width = 833
+    Width = 824
     Align = alBottom
     Caption = 'License: GPLv3   Author: alex_q_2000 (C) 2025   URL: https://github.com/AKotov-dev/SSTP-Connector'
     Font.Color = clGray
@@ -166,7 +183,7 @@ object MainForm: TMainForm
     AnchorSideTop.Control = StartBtn
     AnchorSideTop.Side = asrCenter
     AnchorSideRight.Control = StartBtn
-    Left = 679
+    Left = 669
     Height = 12
     Top = 19
     Width = 12
@@ -177,12 +194,14 @@ object MainForm: TMainForm
     Shape = stCircle
   end
   object DefRouteBox: TCheckBox
+    AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = AutoStartBox
     AnchorSideTop.Side = asrCenter
     Left = 8
     Height = 32
     Top = 104
     Width = 156
+    BorderSpacing.Left = 8
     Caption = 'Default route (ppp0)'
     Checked = True
     State = cbChecked

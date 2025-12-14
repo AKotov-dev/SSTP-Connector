@@ -231,6 +231,7 @@ begin
     S.Add('');
 
     //Подключаемся к серверу (от --log-level зависим выход из потока, min=2)
+    S.Add('sstpc --version');
     S.Add('sstpc --log-level 3 --log-stdout --save-server-route --tls-ext --cert-warn --user '
       + UserEdit.Text + ' --password ' + PasswordEdit.Text + ' ' +
       ServerEdit.Text + ' noauth ' + DefRoute + '&');
