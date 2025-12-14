@@ -18,7 +18,7 @@ uses
 
 begin
   RequireDerivedFormResource := True;
-  Application.Title:='SSTP-Connector v0.3';
+  Application.Title:='SSTP-Connector v0.4';
   Application.Scaled:=True;
   Application.Initialize;
   Application.CreateForm(TMainForm, MainForm);

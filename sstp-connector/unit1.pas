@@ -16,6 +16,7 @@ type
     DefRouteBox: TCheckBox;
     ClearBox: TCheckBox;
     AutoStartBox: TCheckBox;
+    Image1: TImage;
     UserEdit: TEdit;
     PasswordEdit: TEdit;
     ServerEdit: TEdit;
@@ -42,12 +43,13 @@ type
 
   end;
 
-//Ресурсы перевода
+  //Ресурсы перевода
 resourcestring
   SConnectYes = 'The connection is established:';
   SDefaultGW = 'Default route:';
   SStopVPN = 'VPN is stopped. Switching to a local network...';
   SDNS = 'Active DNS:';
+  SSTPCNotFound = 'SSTP Client (sstpc) not found!';
 
 var
   MainForm: TMainForm;
@@ -56,9 +58,18 @@ implementation
 
 uses start_trd, pingtrd;
 
-{$R *.lfm}
+  {$R *.lfm}
 
-{ TMainForm }
+  { TMainForm }
+
+//Проверка установки ADB
+function CheckSSTPCInstalled(out Version: string): boolean;
+begin
+  Version := '';
+  Result := RunCommand('sstpc', ['--version'], Version, [poWaitOnExit, poUsePipes]) and
+    (Pos('sstp-client', Version) > 0);
+  Version := Trim(Version);
+end;
 
 //Общая процедура запуска команд (асинхронная)
 procedure TMainForm.StartProcess(command: string);
@@ -104,11 +115,22 @@ end;
 
 procedure TMainForm.FormCreate(Sender: TObject);
 var
+  bmp: TBitmap;
   FCheckPingThread: TThread;
 begin
   MainForm.Caption := Application.Title;
 
   IniPropStorage1.IniFileName := '/etc/sstp-connector/settings.conf';
+
+  // Устраняем баг иконки приложения
+  bmp := TBitmap.Create;
+  try
+    bmp.PixelFormat := pf32bit;
+    bmp.Assign(Image1.Picture.Graphic);
+    Application.Icon.Assign(bmp);
+  finally
+    bmp.Free;
+  end;
 
   //Поток проверки пинга
   FCheckPingThread := CheckPing.Create(False);
@@ -140,8 +162,19 @@ begin
 end;
 
 procedure TMainForm.FormShow(Sender: TObject);
+var
+  Version: string;
 begin
   IniPropStorage1.Restore;
+
+  // sstpc - клиент установлен?
+  if not CheckSSTpcInstalled(Version) then
+  begin
+    LogMemo.Clear;
+    LogMemo.Append(SSTPCNotFound);
+    StartBtn.Enabled := False;
+    StopBtn.Enabled := False;
+  end;
 
   AutostartBox.Checked := CheckAutoStart;
   ClearBox.Checked := CheckClear;
@@ -158,9 +191,13 @@ var
   DefRoute: string;
   FStartConnect: TThread;
 begin
+  UserEdit.Text := Trim(UserEdit.Text);
+  PasswordEdit.Text := Trim(PasswordEdit.Text);
+  ServerEdit.Text := Trim(ServerEdit.Text);
+
   //Проверка на пустоту
-  if (Trim(UserEdit.Text) = '') or (Trim(PasswordEdit.Text) = '') or
-    (Trim(ServerEdit.Text) = '') then Exit;
+  if (UserEdit.Text = '') or (PasswordEdit.Text = '') or (ServerEdit.Text = '') then
+    Exit;
 
   //ppp0 - маршрут по умолчанию?
   if DefRouteBox.Checked then DefRoute := 'defaultroute replacedefaultroute'
@@ -194,6 +231,7 @@ begin
     S.Add('');
 
     //Подключаемся к серверу (от --log-level зависим выход из потока, min=2)
+    S.Add('sstpc --version');
     S.Add('sstpc --log-level 3 --log-stdout --save-server-route --tls-ext --cert-warn --user '
       + UserEdit.Text + ' --password ' + PasswordEdit.Text + ' ' +
       ServerEdit.Text + ' noauth ' + DefRoute + '&');

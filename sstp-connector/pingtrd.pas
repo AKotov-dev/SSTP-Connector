@@ -25,7 +25,7 @@ implementation
 
 uses unit1;
 
-{ TRD }
+  { TRD }
 
 procedure CheckPing.Execute;
 var

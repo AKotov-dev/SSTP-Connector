@@ -20,16 +20,21 @@ msgid "Default route (ppp0)"
 msgstr ""
 
 #: tmainform.label1.caption
-msgid "User:"
+msgid "User"
 msgstr ""
 
 #: tmainform.label2.caption
 msgctxt "tmainform.label2.caption"
-msgid "Password:"
+msgid "Password"
 msgstr ""
 
 #: tmainform.label3.caption
 msgid "Server[:Port]:"
+msgstr ""
+
+#: tmainform.passwordedit.text
+msgctxt "tmainform.passwordedit.text"
+msgid "vpn"
 msgstr ""
 
 #: tmainform.startbtn.caption
@@ -38,12 +43,17 @@ msgid "Start"
 msgstr ""
 
 #: tmainform.statictext1.caption
-msgid "License: GPLv3   Author: alex_q_2000 (C) 2022   URL: https://linuxforum.ru"
+msgid "License: GPLv3   Author: alex_q_2000 (C) 2025   URL: https://github.com/AKotov-dev/SSTP-Connector"
 msgstr ""
 
 #: tmainform.stopbtn.caption
 msgctxt "tmainform.stopbtn.caption"
 msgid "Stop/Reset"
+msgstr ""
+
+#: tmainform.useredit.text
+msgctxt "tmainform.useredit.text"
+msgid "vpn"
 msgstr ""
 
 #: unit1.sconnectyes
@@ -60,5 +70,9 @@ msgstr ""
 
 #: unit1.sstopvpn
 msgid "VPN is stopped. Switching to a local network..."
+msgstr ""
+
+#: unit1.sstpcnotfound
+msgid "SSTP Client (sstpc) not found!"
 msgstr ""
 

@@ -68,10 +68,10 @@ begin
   with MainForm do
   begin
     if Trim(PingStr[0]) = 'yes' then
-      begin
-      StartBtn.Enabled:=False;
+    begin
+      StartBtn.Enabled := False;
       Shape1.Brush.Color := clLime;
-      end;
+    end
     else
       Shape1.Brush.Color := clYellow;
 
