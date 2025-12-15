@@ -70,9 +70,9 @@ object MainForm: TMainForm
     Left = 8
     Height = 17
     Top = 66
-    Width = 79
+    Width = 76
     BorderSpacing.Left = 8
-    Caption = 'Server[:Port]:'
+    Caption = 'Server[:Port]'
   end
   object ServerEdit: TEdit
     AnchorSideLeft.Control = Label3
@@ -81,10 +81,10 @@ object MainForm: TMainForm
     AnchorSideTop.Side = asrCenter
     AnchorSideRight.Control = PasswordEdit
     AnchorSideRight.Side = asrBottom
-    Left = 90
+    Left = 87
     Height = 37
     Top = 56
-    Width = 569
+    Width = 572
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Left = 3
     TabOrder = 2

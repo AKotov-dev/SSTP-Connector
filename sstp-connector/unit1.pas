@@ -62,14 +62,6 @@ uses start_trd, pingtrd;
 
   { TMainForm }
 
-//Проверка установки ADB
-function CheckSSTPCInstalled(out Version: string): boolean;
-begin
-  Version := '';
-  Result := RunCommand('sstpc', ['--version'], Version, [poWaitOnExit, poUsePipes]) and
-    (Pos('sstp-client', Version) > 0);
-  Version := Trim(Version);
-end;
 
 //Общая процедура запуска команд (асинхронная)
 procedure TMainForm.StartProcess(command: string);
@@ -162,19 +154,8 @@ begin
 end;
 
 procedure TMainForm.FormShow(Sender: TObject);
-var
-  Version: string;
 begin
   IniPropStorage1.Restore;
-
-  // sstpc - клиент установлен?
-  if not CheckSSTpcInstalled(Version) then
-  begin
-    LogMemo.Clear;
-    LogMemo.Append(SSTPCNotFound);
-    StartBtn.Enabled := False;
-    StopBtn.Enabled := False;
-  end;
 
   AutostartBox.Checked := CheckAutoStart;
   ClearBox.Checked := CheckClear;
@@ -214,6 +195,7 @@ begin
     S.Add('sstpc --save-server-route --tls-ext --cert-warn --user ' +
       UserEdit.Text + ' --password ' + PasswordEdit.Text + ' ' +
       ServerEdit.Text + ' noauth ' + DefRoute);
+    S.Add('');
 
     //Если VPN глобальный - заменить DNS
     if DefRouteBox.Checked then
@@ -230,22 +212,32 @@ begin
     S.Add('#!/bin/bash');
     S.Add('');
 
+    //Проверяем наличие клиента sstpc
+    S.Add('if ! command -v sstpc >/dev/null 2>&1; then echo "' +
+      SSTPCNotFound + '"; exit 1; fi');
+    S.Add('');
+
     //Подключаемся к серверу (от --log-level зависим выход из потока, min=2)
     S.Add('sstpc --version');
+    S.Add('');
+
     S.Add('sstpc --log-level 3 --log-stdout --save-server-route --tls-ext --cert-warn --user '
       + UserEdit.Text + ' --password ' + PasswordEdit.Text + ' ' +
       ServerEdit.Text + ' noauth ' + DefRoute + '&');
+    S.Add('');
+
 
     //Ожидание получения ppp0 = ip_address от сервера
     S.Add('count=0');
     S.Add('while [[ -z $(ip a show ppp0 2>/dev/null | grep inet) ]]; do');
-
     S.Add('sleep 1');
     S.Add('count=$(( $count + 1 ))');
     S.Add('done');
+    S.Add('');
 
     S.Add('echo -e "\n' + SConnectYes + '\n---"');
     S.Add('ip a show ppp0');
+    S.Add('');
 
     S.Add('echo -e "\n' + SDefaultGW + '\n---"');
 
@@ -259,6 +251,7 @@ begin
       S.Add('ip route | grep default');
 
     //Вывод DNS
+    S.Add('');
     S.Add('echo -e "\n' + SDNS + '\n---"');
     S.Add('grep "nameserver" /etc/resolv.conf');
 
