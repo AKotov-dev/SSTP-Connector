@@ -25,7 +25,7 @@ implementation
 
 uses unit1;
 
-{ TRD }
+  { TRD }
 
 procedure CheckPing.Execute;
 var
@@ -52,13 +52,13 @@ begin
       PingStr.LoadFromStream(PingProcess.Output);
       Synchronize(@ShowStatus);
 
-      Sleep(500);
+      Sleep(300);
     end;
 
   finally
     PingStr.Free;
     PingProcess.Free;
-    Terminate;
+    //    Terminate;
   end;
 end;
 

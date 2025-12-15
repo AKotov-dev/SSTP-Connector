@@ -268,8 +268,8 @@ begin
     S.SaveToFile('/etc/sstp-connector/connect.sh');
 
     //Запускаем скрипт
-    FStartConnect := StartConnect.Create(False);
-    FStartConnect.Priority := tpNormal;
+    FStartConnect := TStartConnect.Create;
+    FStartConnect.Start;
 
   finally
     S.Free;

@@ -52,13 +52,13 @@ begin
       PingStr.LoadFromStream(PingProcess.Output);
       Synchronize(@ShowStatus);
 
-      Sleep(500);
+      Sleep(350);
     end;
 
   finally
     PingStr.Free;
     PingProcess.Free;
-    Terminate;
+    //    Terminate;
   end;
 end;
 

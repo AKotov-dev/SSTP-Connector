@@ -40,8 +40,8 @@ msgid "Password"
 msgstr "Пароль"
 
 #: tmainform.label3.caption
-msgid "Server[:Port]:"
-msgstr "Сервер[:Порт]:"
+msgid "Server[:Port]"
+msgstr "Сервер[:Порт]"
 
 #: tmainform.passwordedit.text
 msgctxt "tmainform.passwordedit.text"

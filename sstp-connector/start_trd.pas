@@ -5,109 +5,134 @@ unit start_trd;
 interface
 
 uses
-  Classes, Process, SysUtils, ComCtrls;
+  Classes, SysUtils, Process;
 
 type
-  StartConnect = class(TThread)
+  TStartConnect = class(TThread)
   private
+    FProcess: TProcess;
+    FBuffer: string;
+    FNewLines: TStringList;
 
-    { Private declarations }
+    procedure DoStartUI;
+    procedure DoStopUI;
+    procedure DoShowLog;
   protected
-  var
-    Result: TStringList;
-
     procedure Execute; override;
-
-    procedure ShowLog;
-    procedure StartProgress;
-    procedure StopProgress;
-
+  public
+    constructor Create;
+    destructor Destroy; override;
   end;
 
 implementation
 
 uses Unit1;
 
-  { TRD }
+  { TStartConnect }
 
-procedure StartConnect.Execute;
-var
-  ExProcess: TProcess;
+constructor TStartConnect.Create;
 begin
-  try //Вывод лога
-    Synchronize(@StartProgress);
+  inherited Create(True); // suspended
+  FreeOnTerminate := False;
 
-    FreeOnTerminate := True; //Уничтожить по завершении
-    Result := TStringList.Create;
+  FNewLines := TStringList.Create;
+end;
 
-    //Рабочий процесс
-    ExProcess := TProcess.Create(nil);
+destructor TStartConnect.Destroy;
+begin
+  FNewLines.Free;
+  inherited Destroy;
+end;
 
-    //Connect via ppp0
-    ExProcess.Executable := 'bash';
-    ExProcess.Parameters.Add('-c');
-    ExProcess.Parameters.Add('chmod +x /etc/sstp-connector/connect.sh; bash ' +
-      '/etc/sstp-connector/connect.sh; echo "---"');
+procedure TStartConnect.Execute;
+var
+  Buffer: array[0..2047] of byte;
+  ReadCount: longint;
+  S, Line: string;
+  P: integer;
+begin
+  Queue(@DoStartUI);
 
-    ExProcess.Options := [poUsePipes, poStderrToOutPut];
+  FProcess := TProcess.Create(nil);
+  try
+    FProcess.Executable := 'bash';
+    FProcess.Parameters.Add('-c');
+    FProcess.Parameters.Add(
+      'chmod +x /etc/sstp-connector/connect.sh; ' +
+      '/etc/sstp-connector/connect.sh');
 
-    ExProcess.Execute;
+    FProcess.Options := [poUsePipes, poStderrToOutPut];
+    FProcess.Execute;
 
-    //Выводим лог динамически
-    while ExProcess.Running do
+    while (not Terminated) and (FProcess.Running or
+        (FProcess.Output.NumBytesAvailable > 0)) do
     begin
-      Result.LoadFromStream(ExProcess.Output);
+      if FProcess.Output.NumBytesAvailable > 0 then
+      begin
+        ReadCount := FProcess.Output.Read(Buffer, SizeOf(Buffer));
+        SetString(S, PChar(@Buffer[0]), ReadCount);
 
-      //Выводим лог
-      if Result.Count <> 0 then
-        Synchronize(@ShowLog);
+        FBuffer := FBuffer + S;
+
+        // разбор строк
+        while True do
+        begin
+          P := Pos(LineEnding, FBuffer);
+          if P = 0 then Break;
+
+          Line := Copy(FBuffer, 1, P - 1);
+          Delete(FBuffer, 1, P + Length(LineEnding) - 1);
+
+          FNewLines.Add(Line);
+        end;
+
+        if FNewLines.Count > 0 then
+          Queue(@DoShowLog);
+      end
+      else
+        Sleep(50);
     end;
 
   finally
-    Synchronize(@StopProgress);
-    Result.Free;
-    ExProcess.Free;
-    Terminate;
+    FProcess.Free;
+    Queue(@DoStopUI);
   end;
 end;
 
-{ БЛОК ОТОБРАЖЕНИЯ ЛОГА }
+{ ==== Вывод лога ==== }
 
-//Старт скрипта подключения. Процесс активен до завершения sstpc.
-procedure StartConnect.StartProgress;
+// Старт выполения
+procedure TStartConnect.DoStartUI;
 begin
   with MainForm do
   begin
     LogMemo.Clear;
     StartBtn.Enabled := False;
-    StartBtn.Refresh;
+    StartBtn.Repaint;
   end;
 end;
 
-//Стоп (возникает при обрыве или нажатии Stop)
-procedure StartConnect.StopProgress;
+// Стоп выполнения
+procedure TStartConnect.DoStopUI;
 begin
   with MainForm do
   begin
-    if Trim(Result[0]) <> '---' then
-      StartBtn.Enabled := True;
-    StartBtn.Refresh;
-
-    //Сохраняем историю
+    StartBtn.Enabled := True;
+    StartBtn.Repaint;
     IniPropStorage1.Save;
   end;
 end;
 
-//Вывод лога
-procedure StartConnect.ShowLog;
+// Показываем лог
+procedure TStartConnect.DoShowLog;
 var
   i: integer;
 begin
-  //Вывод построчно
-  for i := 0 to Result.Count - 1 do
-    MainForm.LogMemo.Lines.Append(Result[i]);
+  for i := 0 to FNewLines.Count - 1 do
+    MainForm.LogMemo.Lines.Add(FNewLines[i]);
 
-  //Промотать список вниз
+  FNewLines.Clear;
+
   MainForm.LogMemo.SelStart := Length(MainForm.LogMemo.Text);
   MainForm.LogMemo.SelLength := 0;
 end;

@@ -2,7 +2,7 @@
 name=sstp-connector
 
 [VERSION]
-version=0.4
+version=0.5
 
 [RELEASE]
 release=0.mrx9
@@ -72,15 +72,20 @@ devtool=Lazarus
 toolversion=4.4
 
 [INFO]
-0=v0.4
-1=+ Build in Lazarus-4.4
-2=+ Checking and displaying the SSTP client version
+0=v0.5
+1=+ Cosmetic code fixes
+2=+ Improved control thread
 3=+ RPM packages for Mageia-9
 4=
-5=v0.3
-6=+ Release for Mageia-9 and higher
-7=+ Improved output of the sstp connection log
-8=+ Definition of DE when starting from root (kdesu/pkexec)
-9=+ DNS leak protection (/etc/sstp-connector/update-resolv-conf)
-10=
-11=v0.1 - initial release
+5=v0.4
+6=+ Build in Lazarus-4.4
+7=+ Checking and displaying the SSTP client version
+8=+ RPM packages for Mageia-9
+9=
+10=v0.3
+11=+ Release for Mageia-9 and higher
+12=+ Improved output of the sstp connection log
+13=+ Definition of DE when starting from root (kdesu/pkexec)
+14=+ DNS leak protection (/etc/sstp-connector/update-resolv-conf)
+15=
+16=v0.1 - initial release
