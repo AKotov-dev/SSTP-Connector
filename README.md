@@ -7,4 +7,4 @@ Secure Socket Tunneling Protocol (SSTP) transports a PPP tunnel over a TLS chann
 
 If the Username and/or Password are missing, try `vpn` `vpn`.
   
-![](https://github.com/AKotov-dev/SSTP-Connector/blob/main/ScreenShot.png)
+![](https://github.com/AKotov-dev/SSTP-Connector/blob/main/Screenshot1.png)
