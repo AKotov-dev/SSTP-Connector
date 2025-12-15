@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, Buttons,
-  ComCtrls, ExtCtrls, IniPropStorage, Process, DefaultTranslator;
+  ComCtrls, ExtCtrls, IniPropStorage, Process, DefaultTranslator,
+  XMLPropStorage;
 
 type
 
@@ -20,7 +21,6 @@ type
     UserEdit: TEdit;
     PasswordEdit: TEdit;
     ServerEdit: TEdit;
-    IniPropStorage1: TIniPropStorage;
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
@@ -29,6 +29,7 @@ type
     StartBtn: TSpeedButton;
     StopBtn: TSpeedButton;
     StaticText1: TStaticText;
+    XMLPropStorage1: TXMLPropStorage;
     procedure AutoStartBoxChange(Sender: TObject);
     procedure ClearBoxChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -112,7 +113,7 @@ var
 begin
   MainForm.Caption := Application.Title;
 
-  IniPropStorage1.IniFileName := '/etc/sstp-connector/settings.conf';
+  XMLPropStorage1.FileName := '/etc/sstp-connector/settings.xml';
 
   // Устраняем баг иконки приложения
   bmp := TBitmap.Create;
@@ -155,7 +156,7 @@ end;
 
 procedure TMainForm.FormShow(Sender: TObject);
 begin
-  IniPropStorage1.Restore;
+  XMLPropStorage1.Restore;
 
   AutostartBox.Checked := CheckAutoStart;
   ClearBox.Checked := CheckClear;
@@ -212,13 +213,13 @@ begin
     S.Add('#!/bin/bash');
     S.Add('');
 
-    //Подключаемся к серверу (от --log-level зависим выход из потока, min=2)
-    S.Add('sstpc --version');
+    //Проверяем наличие клиента sstpc
+    S.Add('if ! command -v sstpc >/dev/null 2>&1; then echo "' +
+      SSTPCNotFound + '"; exit 1; fi');
     S.Add('');
 
-    //Проверяем наличие клиента sstpc
-    S.Add('if [ ! sstpc --version >/dev/null 2>&1 ]; then echo "' +
-      SSTPCNotFound + '"; exit; fi');
+    //Подключаемся к серверу (от --log-level зависим выход из потока, min=2)
+    S.Add('sstpc --version');
     S.Add('');
 
     S.Add('sstpc --log-level 3 --log-stdout --save-server-route --tls-ext --cert-warn --user '

@@ -108,6 +108,7 @@ begin
   begin
     LogMemo.Clear;
     StartBtn.Enabled := False;
+    StartBtn.Repaint;
   end;
 end;
 
@@ -117,7 +118,8 @@ begin
   with MainForm do
   begin
     StartBtn.Enabled := True;
-    IniPropStorage1.Save;
+    StartBtn.Repaint;
+    XMLPropStorage1.Save;
   end;
 end;
 

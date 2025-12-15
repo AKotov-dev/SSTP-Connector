@@ -52,7 +52,7 @@ begin
       PingStr.LoadFromStream(PingProcess.Output);
       Synchronize(@ShowStatus);
 
-      Sleep(300);
+      Sleep(350);
     end;
 
   finally

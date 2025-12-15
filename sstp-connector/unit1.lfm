@@ -6,7 +6,7 @@ object MainForm: TMainForm
   Caption = 'SSTP-Connector'
   ClientHeight = 610
   ClientWidth = 824
-  SessionProperties = 'Height;Left;LogMemo.Lines;PasswordEdit.Text;RouterEdit.Text;ServerEdit.Text;Top;UserEdit.Text;Width;DefRouteBox.Checked'
+  SessionProperties = 'DefRouteBox.Checked;Height;Left;LogMemo.Lines;PasswordEdit.Text;RouterEdit.Text;ServerEdit.Text;Top;UserEdit.Text;Width'
   LCLVersion = '4.4.0.0'
   OnCreate = FormCreate
   OnShow = FormShow
@@ -546,9 +546,9 @@ object MainForm: TMainForm
     }
     Visible = False
   end
-  object IniPropStorage1: TIniPropStorage
+  object XMLPropStorage1: TXMLPropStorage
     StoredValues = <>
-    Left = 40
-    Top = 152
+    Left = 56
+    Top = 168
   end
 end

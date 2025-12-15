@@ -65,19 +65,20 @@ end;
 //Индикация - светодиод
 procedure CheckPing.ShowStatus;
 begin
-  with MainForm do
-  begin
-    if Trim(PingStr[0]) = 'yes' then
+  if Assigned(MainForm) then
+    with MainForm do
     begin
-      StartBtn.Enabled := False;
-      Shape1.Brush.Color := clLime;
-    end
-    else
-      Shape1.Brush.Color := clYellow;
+      if Trim(PingStr[0]) = 'yes' then
+      begin
+        StartBtn.Enabled := False;
+        Shape1.Brush.Color := clLime;
+      end
+      else
+        Shape1.Brush.Color := clYellow;
 
-    Shape1.Repaint;
-    StartBtn.Refresh;
-  end;
+      Shape1.Repaint;
+      StartBtn.Refresh;
+    end;
 end;
 
 end.
