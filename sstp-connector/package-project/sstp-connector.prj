@@ -73,8 +73,8 @@ toolversion=4.4
 
 [INFO]
 0=v0.5
-1=+ Cosmetic code fixes
-2=+ Improved control thread
+1=+ Improved control thread
+2=+ Saving the log in XML format
 3=+ RPM packages for Mageia-9
 4=
 5=v0.4
