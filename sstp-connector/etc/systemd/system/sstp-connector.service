@@ -5,9 +5,11 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-ExecStart=/etc/sstp-connector/connect-systemd.sh
+ExecStart=/etc/sstp-connector/connect.sh
 ExecStop=/etc/sstp-connector/stop-connect.sh
 Restart=on-failure
+RestartSec=3
+KillMode=process
 
 [Install]
 WantedBy=multi-user.target

@@ -18,6 +18,7 @@ type
     AutoStartBox: TCheckBox;
     Image1: TImage;
     IniPropStorage1: TIniPropStorage;
+    Timer1: TTimer;
     UserEdit: TEdit;
     PasswordEdit: TEdit;
     ServerEdit: TEdit;
@@ -36,6 +37,7 @@ type
     procedure StartBtnClick(Sender: TObject);
     procedure StopBtnClick(Sender: TObject);
     procedure StartProcess(command: string);
+    procedure Timer1Timer(Sender: TObject);
 
   private
 
@@ -56,7 +58,7 @@ var
 
 implementation
 
-uses start_trd, pingtrd;
+uses pingtrd;
 
   {$R *.lfm}
 
@@ -78,6 +80,22 @@ begin
     ExProcess.Execute;
   finally
     ExProcess.Free;
+  end;
+end;
+
+//Обновление лога
+procedure TMainForm.Timer1Timer(Sender: TObject);
+begin
+  if FileExists('/etc/sstp-connector/log.txt') then
+  begin
+    LogMemo.Lines.BeginUpdate;
+    try
+      LogMemo.Lines.LoadFromFile('/etc/sstp-connector/log.txt');
+      LogMemo.SelStart := Length(LogMemo.Text);
+      LogMemo.SelLength := 0;
+    finally
+      LogMemo.Lines.EndUpdate;
+    end;
   end;
 end;
 
@@ -139,6 +157,7 @@ begin
     RunCommand('/bin/bash', ['-c', 'touch /etc/sstp-connector/clear'], S);
 end;
 
+
 procedure TMainForm.AutoStartBoxChange(Sender: TObject);
 var
   S: ansistring;
@@ -170,7 +189,6 @@ procedure TMainForm.StartBtnClick(Sender: TObject);
 var
   S: TStringList;
   DefRoute: string;
-  FStartConnect: TThread;
 begin
   UserEdit.Text := Trim(UserEdit.Text);
   PasswordEdit.Text := Trim(PasswordEdit.Text);
@@ -180,6 +198,8 @@ begin
   if (UserEdit.Text = '') or (PasswordEdit.Text = '') or (ServerEdit.Text = '') then
     Exit;
 
+  LogMemo.Clear;
+
   //ppp0 - маршрут по умолчанию?
   if DefRouteBox.Checked then DefRoute := 'defaultroute replacedefaultroute'
   else
@@ -188,7 +208,7 @@ begin
   try
     S := TStringList.Create;
 
-    S.Add('#!/bin/bash');
+ {   S.Add('#!/bin/bash');
     S.Add('');
 
     //Содаём пускач для systemd (Type=simple)
@@ -205,16 +225,21 @@ begin
 
     S.SaveToFile('/etc/sstp-connector/connect-systemd.sh');
     StartProcess('chmod +x /etc/sstp-connector/connect-systemd.sh');
-
+  }
     //Создаём пускач для запуска через GUI
-    S.Clear;
+    //  S.Clear;
 
     S.Add('#!/bin/bash');
     S.Add('');
+    S.Add('{');
 
     //Проверяем наличие клиента sstpc
     S.Add('if ! command -v sstpc >/dev/null 2>&1; then echo "' +
       SSTPCNotFound + '"; exit 1; fi');
+    S.Add('');
+
+    //Обнуляем лог
+    S.Add('> /etc/sstp-connector/log.txt');
     S.Add('');
 
     //Подключаемся к серверу (от --log-level зависим выход из потока, min=2)
@@ -223,9 +248,10 @@ begin
 
     S.Add('sstpc --log-level 3 --log-stdout --save-server-route --tls-ext --cert-warn --user '
       + UserEdit.Text + ' --password ' + PasswordEdit.Text + ' ' +
-      ServerEdit.Text + ' noauth ' + DefRoute + ' &');
+      ServerEdit.Text + ' noauth ' + DefRoute +
+      ' | grep -a --line-buffered -v "Echo-Reply" | stdbuf -oL tr -d ' +
+      '''' + '\000' + '''' + ' &');
     S.Add('');
-
 
     //Ожидание получения ppp0 = ip_address от сервера
     S.Add('count=0');
@@ -256,13 +282,14 @@ begin
     S.Add('grep "nameserver" /etc/resolv.conf');
 
     S.Add('');
-    S.Add('exit 0');
+
+    S.Add('} 2>&1 | tee /etc/sstp-connector/log.txt');
 
     S.SaveToFile('/etc/sstp-connector/connect.sh');
 
-    //Запускаем скрипт
-    FStartConnect := TStartConnect.Create;
-    FStartConnect.Start;
+    //Запускаем скрипт соединения
+    StartBtn.Enabled := False;
+    StartProcess('chmod +x /etc/sstp-connector/connect.sh; systemctl restart sstp-connector');
 
   finally
     S.Free;
@@ -272,12 +299,18 @@ end;
 //Down ppp0
 procedure TMainForm.StopBtnClick(Sender: TObject);
 begin
-  LogMemo.Text := SStopVPN;
+  Timer1.Enabled := False;
+  StartProcess('systemctl stop sstp-connector');
+  Timer1.Enabled := True;
 
+  LogMemo.Clear;
+  StartProcess('echo "' + SStopVPN + '" > /etc/sstp-connector/log.txt');
+
+  LogMemo.Lines.Add(SStopVPN);
+
+  Application.ProcessMessages;
   StartBtn.Enabled := True;
   Shape1.Brush.Color := clYellow;
-
-  StartProcess('/etc/sstp-connector/stop-connect.sh');
 end;
 
 end.

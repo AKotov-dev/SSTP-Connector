@@ -11,7 +11,6 @@ uses
   Interfaces, // this includes the LCL widgetset
   Forms,
   Unit1,
-  start_trd,
   PingTRD { you can add units after this };
 
   {$R *.res}

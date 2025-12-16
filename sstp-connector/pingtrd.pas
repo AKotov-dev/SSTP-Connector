@@ -58,7 +58,6 @@ begin
   finally
     PingStr.Free;
     PingProcess.Free;
-    //    Terminate;
   end;
 end;
 

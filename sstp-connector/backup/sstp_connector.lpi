@@ -85,10 +85,6 @@
         <UnitName Value="Unit1"/>
       </Unit>
       <Unit>
-        <Filename Value="start_trd.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit>
-      <Unit>
         <Filename Value="pingtrd.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="PingTRD"/>

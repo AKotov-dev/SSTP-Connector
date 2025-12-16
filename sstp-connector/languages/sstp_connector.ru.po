@@ -32,7 +32,7 @@ msgstr "Дефолтный маршрут (ppp0)"
 
 #: tmainform.label1.caption
 msgid "User"
-msgstr "Пользователь"
+msgstr "Юзер"
 
 #: tmainform.label2.caption
 msgctxt "tmainform.label2.caption"
