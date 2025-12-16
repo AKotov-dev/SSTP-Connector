@@ -6,8 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, Buttons,
-  ComCtrls, ExtCtrls, IniPropStorage, Process, DefaultTranslator,
-  XMLPropStorage;
+  ComCtrls, ExtCtrls, Process, DefaultTranslator, IniPropStorage;
 
 type
 
@@ -18,6 +17,7 @@ type
     ClearBox: TCheckBox;
     AutoStartBox: TCheckBox;
     Image1: TImage;
+    IniPropStorage1: TIniPropStorage;
     UserEdit: TEdit;
     PasswordEdit: TEdit;
     ServerEdit: TEdit;
@@ -29,7 +29,6 @@ type
     StartBtn: TSpeedButton;
     StopBtn: TSpeedButton;
     StaticText1: TStaticText;
-    XMLPropStorage1: TXMLPropStorage;
     procedure AutoStartBoxChange(Sender: TObject);
     procedure ClearBoxChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -113,7 +112,7 @@ var
 begin
   MainForm.Caption := Application.Title;
 
-  XMLPropStorage1.FileName := '/etc/sstp-connector/settings.xml';
+  IniPropStorage1.IniFileName := '/etc/sstp-connector/settings.ini';
 
   // Устраняем баг иконки приложения
   bmp := TBitmap.Create;
@@ -156,7 +155,7 @@ end;
 
 procedure TMainForm.FormShow(Sender: TObject);
 begin
-  XMLPropStorage1.Restore;
+  IniPropStorage1.Restore;
 
   AutostartBox.Checked := CheckAutoStart;
   ClearBox.Checked := CheckClear;

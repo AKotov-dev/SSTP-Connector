@@ -104,23 +104,25 @@ end;
 // Старт выполения
 procedure TStartConnect.DoStartUI;
 begin
-  with MainForm do
-  begin
-    LogMemo.Clear;
-    StartBtn.Enabled := False;
-    StartBtn.Repaint;
-  end;
+  if Assigned(MainForm) then
+    with MainForm do
+    begin
+      LogMemo.Clear;
+      StartBtn.Enabled := False;
+      StartBtn.Repaint;
+    end;
 end;
 
 // Стоп выполнения
 procedure TStartConnect.DoStopUI;
 begin
-  with MainForm do
-  begin
-    StartBtn.Enabled := True;
-    StartBtn.Repaint;
-    XMLPropStorage1.Save;
-  end;
+  if Assigned(MainForm) then
+    with MainForm do
+    begin
+      StartBtn.Enabled := True;
+      StartBtn.Repaint;
+      XMLPropStorage1.Save;
+    end;
 end;
 
 // Показываем лог
@@ -128,13 +130,16 @@ procedure TStartConnect.DoShowLog;
 var
   i: integer;
 begin
-  for i := 0 to FNewLines.Count - 1 do
-    MainForm.LogMemo.Lines.Add(FNewLines[i]);
+  if Assigned(MainForm) then
+  begin
+    for i := 0 to FNewLines.Count - 1 do
+      MainForm.LogMemo.Lines.Add(FNewLines[i]);
 
-  FNewLines.Clear;
+    FNewLines.Clear;
 
-  MainForm.LogMemo.SelStart := Length(MainForm.LogMemo.Text);
-  MainForm.LogMemo.SelLength := 0;
+    MainForm.LogMemo.SelStart := Length(MainForm.LogMemo.Text);
+    MainForm.LogMemo.SelLength := 0;
+  end;
 end;
 
 end.

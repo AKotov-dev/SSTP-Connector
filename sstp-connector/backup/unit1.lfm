@@ -546,9 +546,9 @@ object MainForm: TMainForm
     }
     Visible = False
   end
-  object XMLPropStorage1: TXMLPropStorage
+  object IniPropStorage1: TIniPropStorage
     StoredValues = <>
     Left = 56
-    Top = 168
+    Top = 160
   end
 end

@@ -121,7 +121,7 @@ begin
     begin
       StartBtn.Enabled := True;
       StartBtn.Repaint;
-      XMLPropStorage1.Save;
+      IniPropStorage1.Save;
     end;
 end;
 
