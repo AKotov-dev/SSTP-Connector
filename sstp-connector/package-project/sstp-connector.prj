@@ -31,7 +31,7 @@ urlcopy=https://github.com/AKotov-dev/SSTP-Connector
 license=GPLv3
 
 [DEPS]
-deps=sstp-client gtk2 polkit fping procps-ng resolvconf systemd
+deps=sstp-client gtk2 polkit fping procps resolvconf systemd
 
 [META]
 meta=0
