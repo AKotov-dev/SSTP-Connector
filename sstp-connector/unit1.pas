@@ -130,7 +130,7 @@ var
 begin
   MainForm.Caption := Application.Title;
 
-  IniPropStorage1.IniFileName := '/etc/sstp-connector/settings.ini';
+  IniPropStorage1.IniFileName := '/etc/sstp-connector/settings.conf';
 
   //Устраняем баг иконки приложения
   bmp := TBitmap.Create;
