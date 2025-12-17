@@ -76,7 +76,7 @@ begin
       end
       else
       begin
-        StopBtn.Enabled := False;
+        // StartBtn.Enabled := True;
         Shape1.Brush.Color := clYellow;
       end;
 

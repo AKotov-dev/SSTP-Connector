@@ -45,7 +45,7 @@ begin
       PingProcess.Parameters.Add(
         // 'ping -c 2 google.com &> /dev/null && [[ $(ip -br a | grep wg[[:digit:]]) ]] && echo "yes" || echo "no"');
         '[[ $(fping google.com) && $(ip -br a | grep ppp0) ]] && echo "yes" || echo "no"');
-      //     '[[ $(systemctl is-active sstp-connector) == "inactive" ]] && echo "no" || echo "yes"');
+      // '[[ $(systemctl is-active sstp-connector) == "inactive" ]] && echo "no" || echo "yes"');
 
       PingProcess.Options := [poUsePipes, poWaitOnExit];
 

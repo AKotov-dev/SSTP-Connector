@@ -6,9 +6,12 @@ Wants=network-online.target
 [Service]
 Type=simple
 ExecStart=/etc/sstp-connector/connect.sh
-ExecStop=/etc/sstp-connector/stop-connect.sh
+ExecStopPost=-/etc/sstp-connector/update-resolv-conf down
 Restart=on-failure
 RestartSec=3
+StandardOutput=file:/etc/sstp-connector/log.txt
+StandardError=file:/etc/sstp-connector/log.txt
+
 
 [Install]
 WantedBy=multi-user.target

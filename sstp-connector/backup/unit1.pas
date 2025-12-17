@@ -132,7 +132,7 @@ begin
 
   IniPropStorage1.IniFileName := '/etc/sstp-connector/settings.ini';
 
-  // Устраняем баг иконки приложения
+  //Устраняем баг иконки приложения
   bmp := TBitmap.Create;
   try
     bmp.PixelFormat := pf32bit;
@@ -147,6 +147,7 @@ begin
   FCheckPingThread.Priority := tpNormal;
 end;
 
+//Очистка кукисов браузеров
 procedure TMainForm.ClearBoxChange(Sender: TObject);
 var
   S: ansistring;
@@ -158,6 +159,7 @@ begin
 end;
 
 
+//Автостарт Вкл/Выкл
 procedure TMainForm.AutoStartBoxChange(Sender: TObject);
 var
   S: ansistring;
@@ -206,14 +208,13 @@ begin
     DefRoute := '';
 
   try
-    S := TStringList.Create;
-
     //Создаём пускач для запуска через GUI
+    S := TStringList.Create;
     S.Clear;
 
     S.Add('#!/bin/bash');
     S.Add('');
-    S.Add('{');
+  //  S.Add('{');
 
     //Проверяем наличие клиента sstpc
     S.Add('if ! command -v sstpc >/dev/null 2>&1; then echo "' +
@@ -265,7 +266,7 @@ begin
 
     S.Add('');
 
-    S.Add('} 2>&1 | tee /etc/sstp-connector/log.txt');
+//    S.Add('} 2>&1 | tee /etc/sstp-connector/log.txt');
 
     S.SaveToFile('/etc/sstp-connector/connect.sh');
 
@@ -281,14 +282,14 @@ end;
 //Stop connection
 procedure TMainForm.StopBtnClick(Sender: TObject);
 begin
-  StopBtn.Enabled:=False;
+  StopBtn.Enabled := False;
   Timer1.Enabled := False;
   StartProcess('systemctl stop sstp-connector');
-  Sleep(1000);
+  Sleep(500);
   StartProcess('echo "' + SStopVPN + '" > /etc/sstp-connector/log.txt');
   Timer1.Enabled := True;
 
-  StopBtn.Enabled:=True;
+  StopBtn.Enabled := True;
   StartBtn.Enabled := True;
   Shape1.Brush.Color := clYellow;
 end;
