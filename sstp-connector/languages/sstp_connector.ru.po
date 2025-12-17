@@ -81,7 +81,7 @@ msgstr "Активные DNS:"
 
 #: unit1.sstopvpn
 msgid "VPN is stopped. Switching to a local network..."
-msgstr "VPN остановлена. Переключение на локальную сеть..."
+msgstr "VPN остановлен. Переключение на локальную сеть..."
 
 #: unit1.sstpcnotfound
 msgid "SSTP Client (sstpc) not found!"
