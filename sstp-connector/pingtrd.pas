@@ -45,6 +45,7 @@ begin
       PingProcess.Parameters.Add(
         // 'ping -c 2 google.com &> /dev/null && [[ $(ip -br a | grep wg[[:digit:]]) ]] && echo "yes" || echo "no"');
         '[[ $(fping google.com) && $(ip -br a | grep ppp0) ]] && echo "yes" || echo "no"');
+      //     '[[ $(systemctl is-active sstp-connector) == "inactive" ]] && echo "no" || echo "yes"');
 
       PingProcess.Options := [poUsePipes, poWaitOnExit];
 
@@ -61,7 +62,7 @@ begin
   end;
 end;
 
-//Индикация - светодиод
+//Индикация - светодиод/кнопки
 procedure CheckPing.ShowStatus;
 begin
   if Assigned(MainForm) then
@@ -70,10 +71,14 @@ begin
       if Trim(PingStr[0]) = 'yes' then
       begin
         StartBtn.Enabled := False;
+        StopBtn.Enabled := True;
         Shape1.Brush.Color := clLime;
       end
       else
+      begin
+        // StartBtn.Enabled := True;
         Shape1.Brush.Color := clYellow;
+      end;
 
       Shape1.Repaint;
       StartBtn.Repaint;

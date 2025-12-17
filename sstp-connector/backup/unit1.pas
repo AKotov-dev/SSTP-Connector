@@ -278,16 +278,17 @@ begin
   end;
 end;
 
-//Down ppp0
+//Stop connection
 procedure TMainForm.StopBtnClick(Sender: TObject);
 begin
- // Timer1.Enabled := False;
+  StopBtn.Enabled:=False;
+  Timer1.Enabled := False;
   StartProcess('systemctl stop sstp-connector');
-//  Sleep(1000);
+  Sleep(1000);
   StartProcess('echo "' + SStopVPN + '" > /etc/sstp-connector/log.txt');
- // Timer1.Enabled := True;
+  Timer1.Enabled := True;
 
-  Application.ProcessMessages;
+  StopBtn.Enabled:=True;
   StartBtn.Enabled := True;
   Shape1.Brush.Color := clYellow;
 end;
