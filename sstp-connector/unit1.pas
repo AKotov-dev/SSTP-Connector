@@ -214,7 +214,7 @@ begin
 
     S.Add('#!/bin/bash');
     S.Add('');
-    //  S.Add('{'); //Лог пишет сам systemd в /etc/sstp-connector/log.txt
+    S.Add('{');
 
     //Проверяем наличие клиента sstpc
     S.Add('if ! command -v sstpc >/dev/null 2>&1; then echo "' +
@@ -264,9 +264,7 @@ begin
     S.Add('echo -e "\n' + SDNS + '\n---"');
     S.Add('grep "nameserver" /etc/resolv.conf');
 
-    // S.Add('');
-
-    // S.Add('} 2>&1 | tee /etc/sstp-connector/log.txt');
+    S.Add('} 2>&1 | tee /etc/sstp-connector/log.txt');
 
     S.SaveToFile('/etc/sstp-connector/connect.sh');
 
