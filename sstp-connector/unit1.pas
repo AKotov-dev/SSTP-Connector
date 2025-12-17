@@ -208,26 +208,8 @@ begin
   try
     S := TStringList.Create;
 
- {   S.Add('#!/bin/bash');
-    S.Add('');
-
-    //Содаём пускач для systemd (Type=simple)
-    S.Add('sstpc --save-server-route --tls-ext --cert-warn --user ' +
-      UserEdit.Text + ' --password ' + PasswordEdit.Text + ' ' +
-      ServerEdit.Text + ' noauth ' + DefRoute);
-    S.Add('');
-
-    //Если VPN глобальный - заменить DNS
-    if DefRouteBox.Checked then
-      S.Add('/etc/sstp-connector/update-resolv-conf up');
-    S.Add('');
-    S.Add('exit 0');
-
-    S.SaveToFile('/etc/sstp-connector/connect-systemd.sh');
-    StartProcess('chmod +x /etc/sstp-connector/connect-systemd.sh');
-  }
     //Создаём пускач для запуска через GUI
-    //  S.Clear;
+    S.Clear;
 
     S.Add('#!/bin/bash');
     S.Add('');
@@ -301,12 +283,9 @@ procedure TMainForm.StopBtnClick(Sender: TObject);
 begin
   Timer1.Enabled := False;
   StartProcess('systemctl stop sstp-connector');
-  Timer1.Enabled := True;
-
-  LogMemo.Clear;
+  Sleep(1000);
   StartProcess('echo "' + SStopVPN + '" > /etc/sstp-connector/log.txt');
-
-  LogMemo.Lines.Add(SStopVPN);
+  Timer1.Enabled := True;
 
   Application.ProcessMessages;
   StartBtn.Enabled := True;

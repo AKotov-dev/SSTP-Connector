@@ -76,7 +76,7 @@ begin
         Shape1.Brush.Color := clYellow;
 
       Shape1.Repaint;
-      StartBtn.Refresh;
+      StartBtn.Repaint;
     end;
 end;
 

@@ -9,7 +9,6 @@ ExecStart=/etc/sstp-connector/connect.sh
 ExecStop=/etc/sstp-connector/stop-connect.sh
 Restart=on-failure
 RestartSec=3
-KillMode=process
 
 [Install]
 WantedBy=multi-user.target
