@@ -6,7 +6,7 @@ object MainForm: TMainForm
   Caption = 'SSTP-Connector'
   ClientHeight = 610
   ClientWidth = 824
-  SessionProperties = 'DefRouteBox.Checked;Height;Left;PasswordEdit.Text;RouterEdit.Text;ServerEdit.Text;Top;UserEdit.Text;Width'
+  SessionProperties = 'DefRouteBox.Checked;Height;Left;PasswordEdit.Text;ServerEdit.Text;Top;UserEdit.Text;Width'
   LCLVersion = '4.4.0.0'
   OnCreate = FormCreate
   OnShow = FormShow
@@ -554,7 +554,7 @@ object MainForm: TMainForm
   object Timer1: TTimer
     Interval = 500
     OnTimer = Timer1Timer
-    Left = 166
-    Top = 170
+    Left = 168
+    Top = 160
   end
 end

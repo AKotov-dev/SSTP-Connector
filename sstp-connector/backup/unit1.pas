@@ -264,8 +264,6 @@ begin
     S.Add('echo -e "\n' + SDNS + '\n---"');
     S.Add('grep "nameserver" /etc/resolv.conf');
 
-    S.Add('');
-
     S.Add('} 2>&1 | tee /etc/sstp-connector/log.txt');
 
     S.SaveToFile('/etc/sstp-connector/connect.sh');

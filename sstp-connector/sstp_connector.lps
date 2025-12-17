@@ -59,10 +59,10 @@
         <Filename Value="pingtrd.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="PingTRD"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="7"/>
+        <EditorIndex Value="1"/>
         <CursorPos X="15"/>
         <UsageCount Value="42"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="start_trd.pas"/>
