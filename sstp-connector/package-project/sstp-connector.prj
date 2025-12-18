@@ -8,7 +8,7 @@ version=0.5
 release=0.mrx9
 
 [GROUP]
-group=Applications/System
+group=Networking/Other
 
 [DESCRIPTION]
 0=Simple SSTP (Secure Socket Tunneling Protocol) VPN connector
